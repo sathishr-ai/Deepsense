@@ -196,7 +196,8 @@ header[data-testid="stHeader"] {
 }
 
 /* ── New Chat Button (ChatGPT Style) ── */
-div.st-key-new_chat_btn button {
+[data-testid="stSidebarUserContent"] div.st-key-new_chat_btn button,
+[data-testid="stSidebarUserContent"] div.st-key-new_chat_btn button:focus {
     background-color: #202123 !important;
     background: #202123 !important;
     border: none !important;
@@ -211,7 +212,14 @@ div.st-key-new_chat_btn button {
     font-weight: 500 !important;
     width: 100% !important;
 }
-div.st-key-new_chat_btn button:hover {
+/* Force the internal wrapper of the button to left-align */
+[data-testid="stSidebarUserContent"] div.st-key-new_chat_btn button > div {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+[data-testid="stSidebarUserContent"] div.st-key-new_chat_btn button:hover {
     background-color: #2a2b32 !important;
     background: #2a2b32 !important;
 }
