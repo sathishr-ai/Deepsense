@@ -195,6 +195,20 @@ header[data-testid="stHeader"] {
     margin-bottom: -12px !important;
 }
 
+/* ── Sidebar Search Box ── */
+[data-testid="stSidebarUserContent"] div[data-testid="stTextInput"] > div > div {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+}
+[data-testid="stSidebarUserContent"] div[data-testid="stTextInput"] input {
+    color: #e4e4e7 !important;
+    font-size: 0.85rem !important;
+}
+[data-testid="stSidebarUserContent"] div[data-testid="stTextInput"] > div > div:focus-within {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
 /* ── Layout: Centered Chat Pillar ────────────────────────────────────────────── */
 .main .block-container {
     max-width: var(--max-width) !important;

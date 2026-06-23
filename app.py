@@ -495,6 +495,10 @@ with st.sidebar:
     
     # ── Recent Links (Session-based History) ──
     st.markdown("<small style='color:var(--text-zinc-400); font-weight:600; text-transform:uppercase; letter-spacing:1px;'>Recent Chats</small>", unsafe_allow_html=True)
+    
+    # Full Functional Search Bar
+    search_query = st.text_input("🔍 Search Chats", key="history_search", label_visibility="collapsed", placeholder="🔍 Search recent chats...")
+
     # Group history into unique sessions
     sessions = {}
     for turn in st.session_state.memory._history:
@@ -502,11 +506,29 @@ with st.sidebar:
         if sid not in sessions:
             sessions[sid] = turn.get("user", "Empty Chat")
             
+    # Apply Search Filter
+    if search_query:
+        filtered_sessions = {}
+        sq = search_query.lower()
+        for sid, title in sessions.items():
+            # Check title first
+            if sq in title.lower():
+                filtered_sessions[sid] = title
+                continue
+            # Deep search inside the conversation
+            for turn in st.session_state.memory._history:
+                if turn.get("session_id", "default") == sid:
+                    if sq in turn.get("user", "").lower() or sq in turn.get("assistant", "").lower():
+                        filtered_sessions[sid] = title
+                        break
+        sessions = filtered_sessions
+            
     if not sessions:
-        st.markdown("<div style='color:var(--text-zinc-400); font-size:0.8rem; padding:10px;'>No recent chats found.</div>", unsafe_allow_html=True)
+        st.markdown("<div style='color:var(--text-zinc-400); font-size:0.8rem; padding:10px;'>No chats found.</div>", unsafe_allow_html=True)
     else:
-        # Display the last 5 sessions
-        for sid in list(sessions.keys())[-5:][::-1]:
+        # Display the last 15 sessions if searching, otherwise last 5
+        limit = -15 if search_query else -5
+        for sid in list(sessions.keys())[limit:][::-1]:
             title = sessions[sid]
             
             # Clean SYSTEM OVERRIDE from title
