@@ -367,19 +367,24 @@ div[data-testid="stChatInput"] {
 
 /* Target the actual inner input container that Streamlit generates */
 div[data-testid="stChatInput"]>div {
-    background: #2f2f2f !important;
-    /* Clean dark grey like ChatGPT */
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: rgba(10, 10, 15, 0.6) !important;
+    /* Frosted glass dark */
+    -webkit-backdrop-filter: blur(25px) !important;
+    backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(0, 210, 255, 0.3) !important;
+    /* Softer Cyan Border */
     border-radius: 1.5rem !important;
     padding: 0.5rem 1rem !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 210, 255, 0.15) !important;
+    /* 3D depth + cyan glow */
 }
 
 /* Streamlit focus rings */
 div[data-testid="stChatInput"]>div:focus-within {
-    background: #2f2f2f !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+    background: rgba(15, 15, 20, 0.75) !important;
+    border: 1px solid #00d2ff !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 210, 255, 0.4) !important;
+    /* Stronger cyan glow on typing */
 }
 
 div[data-testid="stChatInput"] textarea, div[data-testid="stChatInputTextArea"] {
