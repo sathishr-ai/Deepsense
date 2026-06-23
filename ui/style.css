@@ -197,17 +197,22 @@ header[data-testid="stHeader"] {
 
 /* ── New Chat Button (ChatGPT Style) ── */
 div.st-key-new_chat_btn button {
+    background-color: #202123 !important;
     background: #202123 !important;
     border: none !important;
     box-shadow: none !important;
+    display: flex !important;
     justify-content: flex-start !important;
+    align-items: center !important;
     padding: 10px 14px !important;
     font-size: 0.95rem !important;
     color: #ffffff !important;
     border-radius: 8px !important;
     font-weight: 500 !important;
+    width: 100% !important;
 }
 div.st-key-new_chat_btn button:hover {
+    background-color: #2a2b32 !important;
     background: #2a2b32 !important;
 }
 
@@ -216,27 +221,28 @@ div.st-key-history_search {
     margin-top: -15px !important;
 }
 div.st-key-new_chat_btn {
-    margin-bottom: -5px !important;
+    margin-bottom: 0px !important;
 }
 
-[data-testid="stSidebarUserContent"] div[data-testid="stTextInput"] > div > div {
+/* Force absolute transparency and no borders for all elements inside the search box */
+div.st-key-history_search div, 
+div.st-key-history_search input, 
+div.st-key-history_search [data-baseweb="input"] {
+    background-color: transparent !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    padding: 0 !important;
 }
-[data-testid="stSidebarUserContent"] div[data-testid="stTextInput"] input {
+
+div.st-key-history_search input {
     color: #e4e4e7 !important;
     font-size: 0.9rem !important;
-    background: transparent !important;
-    padding-left: 0px !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+    padding-left: 5px !important;
 }
-[data-testid="stSidebarUserContent"] div[data-testid="stTextInput"] > div > div:focus-within {
+
+div.st-key-history_search div:focus-within {
     border: none !important;
     box-shadow: none !important;
-    background: transparent !important;
 }
 
 /* ── Layout: Centered Chat Pillar ────────────────────────────────────────────── */
