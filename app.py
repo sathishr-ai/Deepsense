@@ -82,77 +82,77 @@ if "splash_shown" not in st.session_state:
     
     with splash_placeholder.container():
         st.markdown("""
+        st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;600&family=JetBrains+Mono:wght@100;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;600&family=JetBrains+Mono:wght@100;400;700&display=swap');
 
 .solid-splash {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: #02040a;
     background-image: 
-        radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.05) 0%, transparent 60%),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 100% 100%, 40px 40px, 40px 40px;
+        radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 50px 50px, 50px 50px;
     z-index: 999999;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     overflow: hidden;
     font-family: 'Outfit', sans-serif;
-    animation: fadeOutSplash 4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+    animation: fadeOutSplash 4.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
 /* Premium Precision Rings */
 .orbital-core {
     position: relative;
-    width: 280px; height: 280px;
+    width: 320px; height: 320px;
     display: flex; justify-content: center; align-items: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .ring-track {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.02);
 }
 
-.ring-track-1 { width: 260px; height: 260px; }
-.ring-track-2 { width: 190px; height: 190px; }
-.ring-track-3 { width: 120px; height: 120px; }
+.ring-track-1 { width: 300px; height: 300px; border: 1px solid rgba(0,212,255,0.1); }
+.ring-track-2 { width: 220px; height: 220px; border: 1px dashed rgba(255,255,255,0.1); animation: spinSweepReverse 30s linear infinite;}
+.ring-track-3 { width: 140px; height: 140px; }
 
 .sweep {
     position: absolute;
     border-radius: 50%;
-    mask: conic-gradient(from 0deg, transparent 70%, white 100%);
-    -webkit-mask: conic-gradient(from 0deg, transparent 70%, white 100%);
+    mask: conic-gradient(from 0deg, transparent 60%, white 100%);
+    -webkit-mask: conic-gradient(from 0deg, transparent 60%, white 100%);
 }
 
 .sweep-1 {
-    width: 260px; height: 260px;
+    width: 300px; height: 300px;
     border: 2px solid #00d2ff;
-    animation: spinSweep 3s linear infinite;
-    filter: drop-shadow(0 0 8px #00d2ff);
+    animation: spinSweep 3.5s linear infinite;
+    filter: drop-shadow(0 0 10px #00d2ff);
 }
 
 .sweep-2 {
-    width: 190px; height: 190px;
-    border: 2px solid #7000ff;
-    animation: spinSweepReverse 2s linear infinite;
-    filter: drop-shadow(0 0 8px #7000ff);
+    width: 220px; height: 220px;
+    border: 3px solid #7000ff;
+    animation: spinSweepReverse 2.5s linear infinite;
+    filter: drop-shadow(0 0 12px #7000ff);
 }
 
 .sweep-3 {
-    width: 120px; height: 120px;
+    width: 140px; height: 140px;
     border: 2px solid #00ffaa;
-    animation: spinSweep 1.5s linear infinite;
+    animation: spinSweep 1.8s linear infinite;
     filter: drop-shadow(0 0 8px #00ffaa);
 }
 
-.core-glow {
+/* Central AI SVG Logo */
+.splash-center-icon {
     position: absolute;
-    width: 50px; height: 50px;
-    background: radial-gradient(circle, #ffffff 0%, #00d2ff 40%, transparent 80%);
-    border-radius: 50%;
-    filter: blur(8px);
-    animation: pulseCoreGlow 2s ease-in-out infinite alternate;
+    width: 85px; height: 85px;
+    z-index: 10;
+    animation: pulseIcon 2s ease-in-out infinite alternate;
 }
 
 .splash-content {
@@ -162,72 +162,91 @@ if "splash_shown" not in st.session_state:
 }
 
 .splash-logo {
-    font-size: 3rem;
-    font-weight: 300;
-    letter-spacing: 12px;
+    font-size: 3.5rem;
+    font-weight: 200;
+    letter-spacing: 16px;
     color: #ffffff;
-    margin-right: -12px;
+    margin-right: -16px;
     text-transform: uppercase;
-    text-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+    text-shadow: 0 0 40px rgba(0, 210, 255, 0.5);
+}
+
+.splash-logo b {
+    font-weight: 600;
 }
 
 .splash-subtitle {
-    font-size: 0.75rem;
-    font-weight: 100;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 8px;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #00d2ff;
+    letter-spacing: 10px;
     text-transform: uppercase;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Outfit', sans-serif;
     margin-top: 5px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
 }
 
 /* Glassmorphism Console */
 .status-console {
-    width: 340px;
-    background: rgba(10, 15, 24, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 8px;
-    padding: 16px 20px;
+    width: 400px;
+    background: linear-gradient(135deg, rgba(10, 15, 24, 0.7), rgba(0, 10, 20, 0.4));
+    border: 1px solid rgba(0, 210, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 12px;
+    padding: 22px 28px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 210, 255, 0.02);
+    gap: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0, 210, 255, 0.05);
 }
 
 .status-line {
     display: flex;
     justify-content: space-between;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
 }
 
 .status-value {
     color: #00d2ff;
-    font-weight: 400;
-    text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.6);
 }
 
 .progress-track {
     width: 100%;
-    height: 2px;
+    height: 3px;
     background: rgba(255,255,255,0.05);
     position: relative;
     overflow: hidden;
     margin-top: 4px;
-    border-radius: 1px;
+    border-radius: 2px;
 }
 
 .progress-fill {
     position: absolute;
     top: 0; left: 0; height: 100%; width: 0%;
     background: linear-gradient(90deg, transparent, #00d2ff, #ffffff);
-    box-shadow: 0 0 10px #00d2ff;
-    animation: fillProgress 3.8s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+    box-shadow: 0 0 15px #00d2ff;
+    animation: fillProgress 4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -1.5px;
+    height: 6px;
+    width: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 12px 4px #00d2ff;
 }
 
 @keyframes spinSweep {
@@ -240,20 +259,21 @@ if "splash_shown" not in st.session_state:
     100% { transform: rotate(-360deg); }
 }
 
-@keyframes pulseCoreGlow {
-    0% { transform: scale(0.9); opacity: 0.6; }
-    100% { transform: scale(1.1); opacity: 1; }
+@keyframes pulseIcon {
+    0% { transform: scale(0.95); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(0,210,255,0.3)); }
+    100% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 25px rgba(0,210,255,0.8)); }
 }
 
 @keyframes slideUpFade {
-    0% { opacity: 0; transform: translateY(30px); }
+    0% { opacity: 0; transform: translateY(40px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fillProgress {
     0% { width: 0%; }
-    40% { width: 35%; }
-    75% { width: 85%; }
+    20% { width: 15%; }
+    50% { width: 60%; }
+    80% { width: 85%; }
     100% { width: 100%; }
 }
 
@@ -264,26 +284,26 @@ if "splash_shown" not in st.session_state:
 
 .sys-boot::after { 
     content: "";
-    animation: textGlitch 3.8s steps(1) forwards; 
+    animation: textGlitch 4s steps(1) forwards; 
 }
 @keyframes textGlitch {
-    0% { content: "INITIALIZING..."; color: #00d2ff;}
+    0% { content: "INITIALIZING CORE..."; color: #00d2ff;}
     20% { content: "ESTABLISHING NEURAL LINK..."; color: #00d2ff; }
-    45% { content: "LOADING LANGUAGE MODELS..."; color: #00d2ff; }
+    45% { content: "LOADING LLM WEIGHTS..."; color: #00d2ff; }
     70% { content: "VERIFYING ENCRYPTION..."; color: #00d2ff; }
-    90% { content: "SYSTEM ONLINE"; color: #00ffaa; text-shadow: 0 0 10px #00ffaa;}
+    85% { content: "SYSTEM ONLINE"; color: #00ffaa; text-shadow: 0 0 15px #00ffaa;}
 }
 
 .sys-mem::after { 
     content: "";
-    animation: memTick 3.8s steps(1) forwards; 
+    animation: memTick 4s steps(1) forwards; 
 }
 @keyframes memTick {
     0% { content: "0.0 TB"; }
     20% { content: "128.4 TB"; }
     45% { content: "512.8 TB"; }
     70% { content: "1024.0 TB"; }
-    90% { content: "OPTIMIZED"; color: #00ffaa; }
+    85% { content: "OPTIMIZED"; color: #00ffaa; text-shadow: 0 0 15px #00ffaa;}
 }
 </style>
 
@@ -295,20 +315,55 @@ if "splash_shown" not in st.session_state:
 <div class="sweep sweep-2"></div>
 <div class="ring-track ring-track-3"></div>
 <div class="sweep sweep-3"></div>
-<div class="core-glow"></div>
+<!-- Futuristic AI Hexagon Logo -->
+<svg class="splash-center-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="coreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00d2ff" />
+            <stop offset="50%" stop-color="#ffffff" />
+            <stop offset="100%" stop-color="#7000ff" />
+        </linearGradient>
+        <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur1" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur2" />
+            <feMerge>
+                <feMergeNode in="blur2" />
+                <feMergeNode in="blur1" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+    <!-- Outer Hex -->
+    <polygon points="50,5 89,27.5 89,72.5 50,95 11,72.5 11,27.5" fill="none" stroke="rgba(0, 210, 255, 0.2)" stroke-width="1"/>
+    <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" fill="none" stroke="rgba(0, 210, 255, 0.5)" stroke-width="1.5"/>
+    <!-- Inner Hex -->
+    <polygon points="50,25 72,37 72,63 50,75 28,63 28,37" fill="none" stroke="url(#coreGradient)" stroke-width="2.5" filter="url(#neonGlow)"/>
+    <!-- Connecting Lines -->
+    <line x1="50" y1="15" x2="50" y2="25" stroke="rgba(0, 210, 255, 0.8)" stroke-width="2"/>
+    <line x1="50" y1="75" x2="50" y2="85" stroke="rgba(0, 210, 255, 0.8)" stroke-width="2"/>
+    <line x1="20" y1="32" x2="28" y2="37" stroke="rgba(0, 210, 255, 0.8)" stroke-width="2"/>
+    <line x1="80" y1="68" x2="72" y2="63" stroke="rgba(0, 210, 255, 0.8)" stroke-width="2"/>
+    <line x1="20" y1="68" x2="28" y2="63" stroke="rgba(0, 210, 255, 0.8)" stroke-width="2"/>
+    <line x1="80" y1="32" x2="72" y2="37" stroke="rgba(0, 210, 255, 0.8)" stroke-width="2"/>
+    <!-- Center Core -->
+    <circle cx="50" cy="50" r="12" fill="url(#coreGradient)" filter="url(#neonGlow)">
+        <animate attributeName="r" values="10;15;10" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+    </circle>
+</svg>
 </div>
 
 <div class="splash-content">
-<div class="splash-logo">DEEPSENSE</div>
+<div class="splash-logo">DEEP<b>SENSE</b></div>
 <div class="splash-subtitle">Neural Intelligence Engine</div>
 
 <div class="status-console">
 <div class="status-line">
-<span>System Status</span>
+<span>System Protocol</span>
 <span class="status-value sys-boot"></span>
 </div>
 <div class="status-line">
-<span>Active Memory</span>
+<span>Active Memory Alloc</span>
 <span class="status-value sys-mem"></span>
 </div>
 <div class="progress-track">
