@@ -167,24 +167,23 @@ if "splash_shown" not in st.session_state:
     filter: drop-shadow(0 0 8px #00ffaa);
 }
 
-/* Premium Full-Screen Laser Scan */
-.biometric-laser {
+/* Beautiful Ambient Light Sweep */
+.ambient-sweep {
     position: absolute;
     top: 0; left: 0;
     width: 100vw;
-    height: 2px;
-    background: #ffffff;
-    box-shadow: 0 0 20px 5px #00d2ff, 0 -30px 40px rgba(0, 210, 255, 0.2);
-    z-index: 15;
+    height: 40vh;
+    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.04) 50%, transparent);
+    z-index: 1;
     pointer-events: none;
-    animation: bioScan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    animation: smoothSweep 8s ease-in-out infinite alternate;
 }
 
-@keyframes bioScan {
-    0% { transform: translateY(-10vh); opacity: 0; }
-    15% { opacity: 0.8; }
-    85% { opacity: 0.8; }
-    100% { transform: translateY(110vh); opacity: 0; }
+@keyframes smoothSweep {
+    0% { transform: translateY(-40vh); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
 }
 
 /* Central AI SVG Logo */
@@ -347,8 +346,8 @@ if "splash_shown" not in st.session_state:
 </style>
 
 <div class="solid-splash">
-<!-- Full Screen Enterprise Laser Scan -->
-<div class="biometric-laser"></div>
+<!-- Full Screen Ambient Light Sweep -->
+<div class="ambient-sweep"></div>
 
 <div class="bokeh-particles">
     <div class="bokeh b1"></div>
