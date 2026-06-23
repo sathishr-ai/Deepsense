@@ -145,6 +145,15 @@ header[data-testid="stHeader"] {
     font-weight: 400 !important;
     color: #a1a1aa !important;
     transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+[data-testid="stSidebarUserContent"] button:not([kind="primary"]) p {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 
 [data-testid="stSidebarUserContent"] button:not([kind="primary"]):hover {

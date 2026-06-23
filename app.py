@@ -486,10 +486,23 @@ with st.sidebar:
         # Display the last 5 sessions
         for sid in list(sessions.keys())[-5:][::-1]:
             title = sessions[sid]
-            truncated = (title[:28] + '...') if len(title) > 28 else title
+            
+            # Clean SYSTEM OVERRIDE from title
+            if "SYSTEM OVERRIDE:" in title:
+                parts = title.split("User prompt: ")
+                if len(parts) > 1:
+                    title = parts[-1]
+                else:
+                    parts2 = title.split("User Prompt: ")
+                    if len(parts2) > 1:
+                        title = parts2[-1]
+                    else:
+                        title = "Document Analysis"
+
+            truncated = (title[:24] + '...') if len(title) > 24 else title
             
             # Place the load button and the delete button side-by-side with no gap
-            col1, col2 = st.columns([0.85, 0.15], gap="small", vertical_alignment="center")
+            col1, col2 = st.columns([0.90, 0.10], gap="small", vertical_alignment="center")
             with col1:
                 if st.button(f"💬 {truncated}", key=f"load_{sid}", use_container_width=True):
                     st.session_state.session_id = sid
