@@ -83,147 +83,211 @@ if "splash_shown" not in st.session_state:
     with splash_placeholder.container():
         st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700&family=Space+Mono:ital@0;1&display=swap');
 
 .solid-splash {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #000000;
+    background: radial-gradient(circle at center, #0a0f18 0%, #000000 100%);
     z-index: 999999;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    animation: fadeOutSplash 3.4s forwards;
+    font-family: 'Outfit', sans-serif;
+    animation: fadeOutSplash 3.8s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
-/* The Liquid Aura Background */
-.aura-container {
-    position: absolute;
-    width: 500px; height: 500px;
-    z-index: 1;
+/* Highly sophisticated orbital rings */
+.orbital-core {
+    position: relative;
+    width: 300px; height: 300px;
     display: flex; justify-content: center; align-items: center;
-}
-
-.aura {
-    position: absolute;
-    width: 100%; height: 100%;
-    background: conic-gradient(from 0deg, #ff5e00, #ff007b, #7000ff, #00d2ff, #ff5e00);
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: rotateAura 6s linear infinite, pulseAura 3s ease-in-out infinite alternate;
-    opacity: 0.5;
-}
-
-.aura-core {
-    position: absolute;
-    width: 440px; height: 440px;
-    background: #000000;
-    border-radius: 50%;
-    z-index: 2;
-}
-
-/* Minimalist Typography */
-.splash-content {
-    z-index: 3;
-    display: flex; flex-direction: column; align-items: center;
-    animation: fadeInUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    margin-top: -15px; /* Pull it up slightly so it is perfectly centered in the circle visually */
-}
-
-.splash-logo {
- font-size: 4rem;
-    font-weight: 600;
-    letter-spacing: -2px;
-    background: linear-gradient(90deg, #00d2ff 0%, #ffffff 50%, #00d2ff 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: silverShine 4s linear infinite;
-    margin-bottom: 0px;
-    text-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-    }
-
-.splash-subtitle {
-    font-size: 1rem;
-    color: #a1a1aa;
-    letter-spacing: 6px;
-    text-transform: uppercase;
     margin-bottom: 2rem;
 }
 
-/* Ultra-sleek Loader */
-.loader-container {
-    position: relative;
-    width: 280px;
-    height: 2px;
-    background: rgba(255,255,255,0.05);
-    overflow: hidden;
-    border-radius: 2px;
+.ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 210, 255, 0.1);
+    box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.05);
 }
 
-.loader-bar {
+.ring-1 {
+    width: 260px; height: 260px;
+    border-top: 1px solid rgba(0, 210, 255, 0.9);
+    animation: spinRotate 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.ring-2 {
+    width: 200px; height: 200px;
+    border-right: 1px solid rgba(0, 255, 170, 0.9);
+    animation: spinRotateReverse 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.ring-3 {
+    width: 140px; height: 140px;
+    border-bottom: 1px solid rgba(112, 0, 255, 0.9);
+    animation: spinRotate 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.core-node {
+    width: 60px; height: 60px;
+    background: radial-gradient(circle, #00d2ff 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(8px);
+    animation: pulseCore 1.5s ease-in-out infinite alternate;
+}
+
+.splash-content {
+    z-index: 3;
+    display: flex; flex-direction: column; align-items: center;
+    animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.splash-logo {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    background: linear-gradient(to right, #ffffff, #8ba1b5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-family: 'Outfit', sans-serif;
+}
+
+.splash-subtitle {
+    font-size: 0.85rem;
+    color: #00d2ff;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+    opacity: 0.8;
+    margin-bottom: 3rem;
+}
+
+/* Premium Status Bar */
+.status-console {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.status-line {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-value {
+    color: #00d2ff;
+}
+
+.progress-track {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.progress-fill {
     position: absolute;
     top: 0; left: 0; height: 100%; width: 0%;
-    background: #ffffff;
-    animation: smoothLoad 3s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-    box-shadow: 0 0 15px rgba(255,255,255,1);
+    background: #00d2ff;
+    box-shadow: 0 0 10px #00d2ff;
+    animation: fillProgress 3.4s cubic-bezier(0.7, 0, 0.3, 1) forwards;
 }
 
-.loading-text {
-    margin-top: 1rem;
-    font-size: 0.75rem;
-    color: #ffffff;
-    opacity: 0.7;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+@keyframes spinRotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
 }
 
-.loading-text::after {
-    content: "STARTING SESSION...";
-    animation: textSwap 3s steps(1) forwards;
+@keyframes spinRotateReverse {
+    0% { transform: rotate(360deg) scale(1); }
+    50% { transform: rotate(180deg) scale(0.95); }
+    100% { transform: rotate(0deg) scale(1); }
 }
 
-@keyframes rotateAura {
-    100% { transform: rotate(360deg); }
+@keyframes pulseCore {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.3); opacity: 1; }
 }
-@keyframes silverShine {
-    to { background-position: 200% center; }
-}
-@keyframes pulseAura {
-    0% { transform: scale(1); opacity: 0.5; }
-    100% { transform: scale(1.1); opacity: 0.8; }
-}
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(30px); }
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(40px); }
     100% { opacity: 1; transform: translateY(0); }
 }
-@keyframes smoothLoad {
-    0% { width: 0%; left: 0; }
-    50% { width: 60%; left: 20%; }
-    100% { width: 100%; left: 0; }
+
+@keyframes fillProgress {
+    0% { width: 0%; }
+    30% { width: 45%; }
+    70% { width: 80%; }
+    100% { width: 100%; }
 }
-@keyframes textSwap {
-    0% { content: "STARTING SESSION..."; }
-    40% { content: "LOADING CHAT HISTORY..."; }
-    80% { content: "READY"; color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
-}
+
 @keyframes fadeOutSplash {
-    0%, 85% { opacity: 1; }
-    100% { opacity: 0; }
+    0%, 85% { opacity: 1; visibility: visible; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+.sys-boot::after { 
+    content: "";
+    animation: textGlitch 3.4s steps(1) forwards; 
+}
+@keyframes textGlitch {
+    0% { content: "INITIALIZING..."; color: #00d2ff;}
+    20% { content: "ESTABLISHING NEURAL LINK..."; color: #00d2ff; }
+    45% { content: "LOADING LANGUAGE MODELS..."; color: #00d2ff; }
+    70% { content: "VERIFYING ENCRYPTION..."; color: #00d2ff; }
+    90% { content: "SYSTEM ONLINE"; color: #00ffaa; text-shadow: 0 0 10px #00ffaa;}
+}
+
+.sys-mem::after { 
+    content: "";
+    animation: memTick 3.4s steps(1) forwards; 
+}
+@keyframes memTick {
+    0% { content: "0 TB"; }
+    20% { content: "128 TB"; }
+    45% { content: "512 TB"; }
+    70% { content: "1024 TB"; }
+    90% { content: "OPTIMIZED"; color: #00ffaa; }
 }
 </style>
+
 <div class="solid-splash">
-<div class="aura-container">
-<div class="aura"></div>
-<div class="aura-core"></div>
-</div>
-<div class="splash-content">
-<div class="splash-logo">DeepSense</div>
-<div class="splash-subtitle">INTELLIGENCE CORE</div>
-<div class="loader-container">
-<div class="loader-bar"></div>
-</div>
-<div class="loading-text"></div>
-</div>
+    <div class="orbital-core">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="core-node"></div>
+    </div>
+    
+    <div class="splash-content">
+        <div class="splash-logo">DeepSense</div>
+        <div class="splash-subtitle">Neural Intelligence Engine</div>
+        
+        <div class="status-console">
+            <div class="status-line">
+                <span>Process</span>
+                <span class="status-value sys-boot"></span>
+            </div>
+            <div class="status-line">
+                <span>Active Memory</span>
+                <span class="status-value sys-mem"></span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
 </div>
 """, unsafe_allow_html=True)
         
