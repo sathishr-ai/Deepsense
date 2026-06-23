@@ -459,6 +459,28 @@ if st.session_state.get("show_toast"):
     st.toast(st.session_state.show_toast)
     del st.session_state.show_toast
 
+# ── Upgrade to Plus Dialog ───────────────────────────────────────────────────
+@st.dialog("✨ Upgrade to DeepSense Plus")
+def upgrade_plus_dialog():
+    st.markdown("""
+    ### Unlock the full potential of DeepSense
+    
+    **DeepSense Free**
+    - Standard response speed
+    - Basic language models
+    - Regular updates
+    
+    ---
+    
+    **DeepSense Plus ($20/month)**
+    - ⚡ **Ultra-fast** response times
+    - 🧠 Access to our most capable **GPT-4o Advanced Model**
+    - 📊 Priority access to new features and data analysis tools
+    """)
+    if st.button("Subscribe Now", type="primary", use_container_width=True):
+        st.success("Successfully upgraded! Welcome to DeepSense Plus.")
+        st.balloons()
+
 # ── Sidebar (The Intelligence Vault) ──────────────────────────────────────────
 with st.sidebar:
     st.markdown("<h2 style='margin-top:0; font-family:Outfit;'>Workspace</h2>", unsafe_allow_html=True)
@@ -578,10 +600,9 @@ with st.sidebar:
                     index=0,
                     key="engine_sel",
                 )
-        st.markdown(
-            "<div style='text-align:center; padding-top:15px; margin-top:15px; border-top: 1px solid rgba(255,255,255,0.05);'><small style='color:var(--text-zinc-400); opacity:0.8; font-family:\"JetBrains Mono\", monospace; font-size:0.7rem; letter-spacing:1px;'><span style='color:#00ffaa; text-shadow: 0 0 5px #00ffaa;'>●</span> NEURAL CORE ONLINE</small></div>",
-            unsafe_allow_html=True,
-        )
+        st.markdown("<hr style='margin: 15px 0 10px 0; border-color: rgba(255,255,255,0.05);'>", unsafe_allow_html=True)
+        if st.button("⭐ Upgrade to DeepSense Plus", use_container_width=True, key="upgrade_btn"):
+            upgrade_plus_dialog()
 
 
 
