@@ -83,152 +83,115 @@ if "splash_shown" not in st.session_state:
     with splash_placeholder.container():
         st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;700&family=Space+Mono:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap');
 
 .solid-splash {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: radial-gradient(circle at center, #0a0f18 0%, #000000 100%);
+    background: #000000;
     z-index: 999999;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     overflow: hidden;
-    font-family: 'Outfit', sans-serif;
-    animation: fadeOutSplash 3.8s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+    font-family: 'Inter', sans-serif;
+    animation: fadeOutSplash 3.5s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
-/* Highly sophisticated orbital rings */
-.orbital-core {
+/* The Siri/OpenAI style breathing orb */
+.orb-container {
     position: relative;
-    width: 300px; height: 300px;
+    width: 250px; height: 250px;
     display: flex; justify-content: center; align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
-.ring {
+.orb {
     position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 210, 255, 0.1);
-    box-shadow: inset 0 0 20px rgba(0, 210, 255, 0.05);
-}
-
-.ring-1 {
-    width: 260px; height: 260px;
-    border-top: 1px solid rgba(0, 210, 255, 0.9);
-    animation: spinRotate 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-}
-
-.ring-2 {
-    width: 200px; height: 200px;
-    border-right: 1px solid rgba(0, 255, 170, 0.9);
-    animation: spinRotateReverse 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-}
-
-.ring-3 {
     width: 140px; height: 140px;
-    border-bottom: 1px solid rgba(112, 0, 255, 0.9);
-    animation: spinRotate 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-}
-
-.core-node {
-    width: 60px; height: 60px;
-    background: radial-gradient(circle, #00d2ff 0%, transparent 70%);
+    background: linear-gradient(135deg, #00d2ff, #7000ff, #ff007b);
     border-radius: 50%;
-    filter: blur(8px);
-    animation: pulseCore 1.5s ease-in-out infinite alternate;
+    filter: blur(45px);
+    opacity: 0.8;
+    animation: breatheOrb 4s ease-in-out infinite alternate, rotateOrb 10s linear infinite;
 }
 
+.orb-core {
+    position: absolute;
+    width: 70px; height: 70px;
+    background: #ffffff;
+    border-radius: 50%;
+    filter: blur(25px);
+    opacity: 0.7;
+    animation: pulseCore 2s ease-in-out infinite alternate;
+}
+
+/* Exquisite Minimalist Typography */
 .splash-content {
     z-index: 3;
     display: flex; flex-direction: column; align-items: center;
-    animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideUpFade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .splash-logo {
-    font-size: 3.5rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    background: linear-gradient(to right, #ffffff, #8ba1b5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 5px;
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 14px;
+    color: #ffffff;
+    margin-bottom: 12px;
+    margin-right: -14px; /* offset the massive letter-spacing for true center */
+}
+
+.splash-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #000000;
+    background: #ffffff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 3.5rem;
     text-transform: uppercase;
-    font-family: 'Outfit', sans-serif;
 }
 
-.splash-subtitle {
-    font-size: 0.85rem;
-    color: #00d2ff;
-    letter-spacing: 12px;
-    text-transform: uppercase;
-    font-family: 'Space Mono', monospace;
-    opacity: 0.8;
-    margin-bottom: 3rem;
-}
-
-/* Premium Status Bar */
-.status-console {
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.status-line {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.status-value {
-    color: #00d2ff;
-}
-
-.progress-track {
-    width: 100%;
+/* Hairline loader */
+.loader-track {
+    width: 160px;
     height: 1px;
     background: rgba(255,255,255,0.1);
     position: relative;
     overflow: hidden;
-    margin-top: 5px;
 }
 
-.progress-fill {
+.loader-fill {
     position: absolute;
-    top: 0; left: 0; height: 100%; width: 0%;
-    background: #00d2ff;
-    box-shadow: 0 0 10px #00d2ff;
-    animation: fillProgress 3.4s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+    top: 0; left: 50%; height: 100%; width: 0%;
+    background: #ffffff;
+    transform: translateX(-50%);
+    box-shadow: 0 0 8px rgba(255,255,255,0.8);
+    animation: fillCenter 3.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
 }
 
-@keyframes spinRotate {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.05); }
-    100% { transform: rotate(360deg) scale(1); }
+@keyframes breatheOrb {
+    0% { transform: scale(0.85); opacity: 0.6; filter: blur(35px); }
+    100% { transform: scale(1.3); opacity: 1; filter: blur(55px); }
 }
 
-@keyframes spinRotateReverse {
-    0% { transform: rotate(360deg) scale(1); }
-    50% { transform: rotate(180deg) scale(0.95); }
-    100% { transform: rotate(0deg) scale(1); }
+@keyframes rotateOrb {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 @keyframes pulseCore {
-    0% { transform: scale(0.8); opacity: 0.5; }
-    100% { transform: scale(1.3); opacity: 1; }
+    0% { transform: scale(0.9); opacity: 0.6; }
+    100% { transform: scale(1.1); opacity: 0.9; }
 }
 
 @keyframes slideUpFade {
-    0% { opacity: 0; transform: translateY(40px); }
+    0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fillProgress {
+@keyframes fillCenter {
     0% { width: 0%; }
-    30% { width: 45%; }
-    70% { width: 80%; }
+    50% { width: 40%; }
     100% { width: 100%; }
 }
 
@@ -236,56 +199,19 @@ if "splash_shown" not in st.session_state:
     0%, 85% { opacity: 1; visibility: visible; }
     100% { opacity: 0; visibility: hidden; }
 }
-
-.sys-boot::after { 
-    content: "";
-    animation: textGlitch 3.4s steps(1) forwards; 
-}
-@keyframes textGlitch {
-    0% { content: "INITIALIZING..."; color: #00d2ff;}
-    20% { content: "ESTABLISHING NEURAL LINK..."; color: #00d2ff; }
-    45% { content: "LOADING LANGUAGE MODELS..."; color: #00d2ff; }
-    70% { content: "VERIFYING ENCRYPTION..."; color: #00d2ff; }
-    90% { content: "SYSTEM ONLINE"; color: #00ffaa; text-shadow: 0 0 10px #00ffaa;}
-}
-
-.sys-mem::after { 
-    content: "";
-    animation: memTick 3.4s steps(1) forwards; 
-}
-@keyframes memTick {
-    0% { content: "0 TB"; }
-    20% { content: "128 TB"; }
-    45% { content: "512 TB"; }
-    70% { content: "1024 TB"; }
-    90% { content: "OPTIMIZED"; color: #00ffaa; }
-}
 </style>
 
 <div class="solid-splash">
-<div class="orbital-core">
-<div class="ring ring-1"></div>
-<div class="ring ring-2"></div>
-<div class="ring ring-3"></div>
-<div class="core-node"></div>
+<div class="orb-container">
+<div class="orb"></div>
+<div class="orb-core"></div>
 </div>
 
 <div class="splash-content">
-<div class="splash-logo">DeepSense</div>
-<div class="splash-subtitle">Neural Intelligence Engine</div>
-
-<div class="status-console">
-<div class="status-line">
-<span>Process</span>
-<span class="status-value sys-boot"></span>
-</div>
-<div class="status-line">
-<span>Active Memory</span>
-<span class="status-value sys-mem"></span>
-</div>
-<div class="progress-track">
-<div class="progress-fill"></div>
-</div>
+<div class="splash-logo">DEEPSENSE</div>
+<div class="splash-badge">INTELLIGENCE</div>
+<div class="loader-track">
+<div class="loader-fill"></div>
 </div>
 </div>
 </div>
