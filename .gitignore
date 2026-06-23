@@ -1,0 +1,29 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+.vscode/
+
+# Ignore scratch and test files
+scratch*.py
+rename.py
+all_strings.txt
+tavily_test.txt
+tavily_debug.txt
+test_openai.py
+fake_results.py
+
+# Ignore training data and models (only pushing UI for Streamlit deployment)
+model/
+data/
+evaluation/
+plot_*.py
+*.html
+*.png
+train_chatbot.py

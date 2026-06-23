@@ -1,0 +1,1767 @@
+/* ── VoxMind Premium Zinc Design System ────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Design Tokens (Zinc/Slate Palette) ────────────────────────────────── */
+:root {
+    --bg-zinc-950: #09090b;
+    --bg-zinc-900: #18181b;
+    --bg-zinc-800: #27272a;
+    --border-zinc-800: #27272a;
+    --text-zinc-50: #fafafa;
+    --text-zinc-400: #a1a1aa;
+    --primary-indigo: #6366f1;
+    --secondary-cyan: #06b6d4;
+    --accent-red: #ef4444;
+    --max-width: 850px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Global Styles ──────────────────────────────────────────────────────────── */
+html,
+body,
+[class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+    color: var(--text-zinc-50) !important;
+}
+
+/* Prevent Streamlit's default "dimming/stale" effect during long runs (like file uploads) */
+[data-testid="stAppViewContainer"] [data-stale="true"],
+[data-testid="stVerticalBlock"] [data-stale="true"],
+[data-testid="stElementContainer"][data-stale="true"],
+div[data-stale="true"] {
+    opacity: 1 !important;
+    transition: none !important;
+    pointer-events: auto !important;
+}
+
+/* ── Animated Gradient Background ──────────────────────────────────────────── */
+html,
+body,
+.stApp,
+[data-testid="stAppViewContainer"],
+.main {
+    background: linear-gradient(135deg,
+            #09090b 0%,
+            #0e0e18 25%,
+            #0b0d14 50%,
+            #10080e 75%,
+            #09090b 100%) !important;
+    background-size: 400% 400% !important;
+    animation: gradientShift 15s ease infinite !important;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Hide Streamlit components but KEEP the sidebar toggle */
+footer {
+    visibility: hidden !important;
+}
+
+/* Make the header container transparent but keep it active for the toggle */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    border-bottom: none !important;
+    pointer-events: none !important;
+    /* Allow clicking elements underneath */
+}
+
+/* Specifically re-enable and style the sidebar toggle */
+[data-testid="stSidebarCollapsedControl"] {
+    visibility: visible !important;
+    pointer-events: auto !important;
+    /* Make it clickable again */
+    left: 1rem !important;
+    top: 1rem !important;
+    background: var(--bg-zinc-900) !important;
+    border: 1px solid var(--border-zinc-800) !important;
+    border-radius: 8px !important;
+    color: var(--text-zinc-50) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    transition: var(--transition);
+}
+
+[data-testid="stSidebarCollapsedControl"]:hover {
+    background: var(--bg-zinc-800) !important;
+    border-color: var(--text-zinc-400) !important;
+}
+
+/* ── Sidebar Layout & Sticky Bottom ────────────────────────────────────────── */
+[data-testid="stSidebar"] {
+    position: relative !important;
+}
+
+.st-key-sidebar_bottom {
+    position: absolute !important;
+    bottom: 1rem !important;
+    left: 0 !important;
+    right: 0 !important;
+    padding: 0 1rem !important;
+    background: transparent !important;
+    /* Let the parent sidebar glassmorphism handle it */
+    z-index: 100 !important;
+}
+
+/* Force solid background on Expander bodies so they don't bleed when overlapping */
+[data-testid="stExpanderDetails"] {
+    background-color: #0e111a !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+    z-index: 999999 !important;
+    position: relative !important;
+}
+
+/* Add padding to the bottom of the sidebar content so recent chats don't get hidden */
+[data-testid="stSidebarUserContent"] {
+    padding-bottom: 200px !important;
+}
+
+/* ── Sidebar Chat Session Buttons (Seamless & Professional) ── */
+[data-testid="stSidebarUserContent"] button:not([kind="primary"]) {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    justify-content: flex-start !important;
+    padding: 10px 12px !important;
+    font-weight: 500 !important;
+    color: #a1a1aa !important;
+    transition: all 0.2s ease !important;
+}
+
+[data-testid="stSidebarUserContent"] button:not([kind="primary"]):hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+}
+
+[data-testid="stSidebarUserContent"] button:not([kind="primary"]):active {
+    background: rgba(255, 255, 255, 0.12) !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* ── Layout: Centered Chat Pillar ────────────────────────────────────────────── */
+.main .block-container {
+    max-width: var(--max-width) !important;
+    padding-top: 2rem !important;
+    padding-bottom: 8rem !important;
+    /* Space for floating input */
+    margin: 0 auto !important;
+}
+
+/* ── Navigation (Minimalist) ───────────────────────────────────────────────── */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-zinc-800);
+}
+
+.nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.logo-vox {
+    color: #ffffff;
+}
+
+.logo-mind {
+    color: #00d2ff;
+    text-shadow: 0px 2px 10px rgba(0, 210, 255, 0.4);
+}
+
+/* ── Chat Experience ────────────────────────────────────────────────────────── */
+.stChatMessage {
+    background-color: transparent !important;
+    border: none !important;
+    padding: 1.5rem 0 !important;
+    animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom User Message (Like ChatGPT) */
+div[data-testid="stChatMessage"]:has(span[aria-label="user"]) {
+    background: rgba(255, 255, 255, 0.03) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    backdrop-filter: blur(15px) !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    border: 1px solid rgba(0, 210, 255, 0.2) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Custom Bot Message */
+div[data-testid="stChatMessage"]:has(span[aria-label="assistant"]) {
+    background-color: transparent !important;
+    padding: 1.5rem 0 !important;
+}
+
+/* Replace Assistant Avatar with Living Pulsating Orb */
+div[data-testid="stChatMessage"]:has(span[aria-label="assistant"]) [data-testid="stChatMessageAvatar"] {
+    background: radial-gradient(circle, #00d2ff 0%, #0055ff 50%, #000000 100%) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 15px #00d2ff, 0 0 30px #0055ff, inset 0 0 10px #ffffff !important;
+    animation: orbPulse 2s ease-in-out infinite alternate !important;
+    color: transparent !important;
+    /* Hide default icon text if any */
+}
+
+div[data-testid="stChatMessage"]:has(span[aria-label="assistant"]) [data-testid="stChatMessageAvatar"] svg {
+    display: none !important;
+    /* Hide default icon */
+}
+
+@keyframes orbPulse {
+    0% {
+        transform: scale(0.9);
+        box-shadow: 0 0 10px #00d2ff, 0 0 20px #0055ff;
+    }
+
+    100% {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px #00d2ff, 0 0 50px #0055ff, inset 0 0 15px #ffffff;
+    }
+}
+
+
+/* ── AI Action Buttons (Like, Dislike, Copy, Listen) ── */
+div[class*="st-key-listen_"] button,
+div[class*="st-key-copy_"] button,
+div[class*="st-key-copy2_"] button,
+div[class*="st-key-like_"] button,
+div[class*="st-key-dislike_"] button,
+div[class*="st-key-share_"] button,
+div[class*="st-key-stop_"] button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: var(--text-zinc-400) !important;
+    font-size: 1.1rem !important;
+    padding: 0.2rem 0.5rem !important;
+    transition: var(--transition);
+}
+
+div[class*="st-key-listen_"] button:hover,
+div[class*="st-key-copy_"] button:hover,
+div[class*="st-key-copy2_"] button:hover,
+div[class*="st-key-like_"] button:hover,
+div[class*="st-key-share_"] button:hover,
+div[class*="st-key-dislike_"] button:hover {
+    color: var(--text-zinc-50) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 6px !important;
+    transform: translateY(-1px);
+}
+
+/* Stop button glows red */
+div[class*="st-key-stop_"] button {
+    color: #ef4444 !important;
+}
+
+div[class*="st-key-stop_"] button:hover {
+    color: #ff6b6b !important;
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-radius: 6px !important;
+    transform: translateY(-1px);
+}
+
+/* ── Floating Input Pill ────────────────────────────────────────────────────── */
+/* Target the fixed input container in Streamlit */
+div[data-testid="stChatInput"] {
+    position: fixed !important;
+    bottom: 2rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: var(--max-width) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 1rem !important;
+    z-index: 1000 !important;
+}
+
+/* Force Streamlit's bottom masking block to be transparent so the gradient shows through */
+[data-testid="stBottomBlockContainer"],
+[data-testid="stBottom"] {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+[data-testid="stBottom"]>div {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Target the actual inner input container that Streamlit generates */
+div[data-testid="stChatInput"]>div {
+    background: rgba(10, 10, 15, 0.6) !important;
+    /* Frosted glass dark */
+    -webkit-backdrop-filter: blur(25px) !important;
+    backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(0, 210, 255, 0.3) !important;
+    /* Softer Cyan Border */
+    border-radius: 1.5rem !important;
+    padding: 0.5rem 1rem !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 210, 255, 0.15) !important;
+    /* 3D depth + cyan glow */
+}
+
+/* Streamlit focus rings */
+div[data-testid="stChatInput"]>div:focus-within {
+    background: rgba(15, 15, 20, 0.75) !important;
+    border: 1px solid #00d2ff !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 210, 255, 0.4) !important;
+    /* Stronger cyan glow on typing */
+}
+
+div[data-testid="stChatInput"] textarea, div[data-testid="stChatInputTextArea"] {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-zinc-50) !important;
+    font-size: 1.05rem !important;
+    padding-left: 9.5rem !important;
+    /* Space for attach + web search buttons */
+    padding-right: 6rem !important;
+    /* Space for both buttons */
+}
+
+/* Remove outline on textarea */
+div[data-testid="stChatInput"] textarea, div[data-testid="stChatInputTextArea"]:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Blanket Rule: Force ALL inner elements to be transparent so the dark background shows perfectly ── */
+div[data-testid="stChatInput"]>div * {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Send Button (ChatGPT Style: White Circle, Black Arrow) ── */
+div[data-testid="stChatInput"] button,
+div[data-testid="stChatInput"] button:disabled {
+    opacity: 1 !important;
+    /* Keep it fully visible */
+    cursor: pointer !important;
+    /* Make it look clickable */
+    background: #fff !important;
+    /* Solid white circle */
+    border-radius: 50% !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin-bottom: 3px !important;
+    margin-right: 2px !important;
+    transition: all 0.2s ease !important;
+}
+
+div[data-testid="stChatInput"] button:hover {
+    background: #e4e4e7 !important;
+}
+
+div[data-testid="stChatInput"] button svg {
+    fill: #000 !important;
+    /* Black arrow */
+    color: #000 !important;
+    width: 20px !important;
+    height: 20px !important;
+    display: block !important;
+}
+
+/* Stop Button state */
+div[data-testid="stChatInput"] button:disabled svg {
+    display: none !important;
+    /* Hide the default arrow */
+}
+
+div[data-testid="stChatInput"] button:disabled::after {
+    content: "■" !important;
+    font-size: 1.2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #000 !important;
+    /* Black square */
+}
+
+/* ── Inject Voice Mic INTO the Chat Input ── */
+.st-key-voice_mic_btn {
+    position: fixed !important;
+    bottom: 2.45rem !important;
+    /* Bulletproof responsive formula: perfectly spaced from the right edge no matter the screen width! */
+    left: calc(50vw + min(50vw, 425px) - 6.0rem) !important;
+    z-index: 1005 !important;
+    width: auto !important;
+}
+
+@media (max-width: 880px) {
+    .st-key-voice_mic_btn {
+        left: calc(100vw - 6.0rem) !important;
+    }
+}
+
+/* ── Inject Attach Button INTO the Chat Input (Left side) ── */
+div[data-testid="stPopover"] {
+    position: fixed !important;
+    bottom: 2.45rem !important;
+    left: calc(50vw - min(50vw, 425px) + 1.6rem) !important;
+    z-index: 1005 !important;
+    width: auto !important;
+}
+
+@media (max-width: 880px) {
+    div[data-testid="stPopover"] {
+        left: 1.2rem !important;
+    }
+}
+
+/* Force absolutely ALL button layers to be transparent */
+.st-key-voice_mic_btn,
+.st-key-voice_mic_btn *,
+div[data-testid="stPopover"],
+div[data-testid="stPopover"] * {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.st-key-voice_mic_btn button {
+    font-size: 1.5rem !important;
+    font-weight: 300 !important;
+    padding: 0 !important;
+    color: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+div[data-testid="stPopover"] button {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Completely wipe Streamlit's default popover label and chevron */
+div[data-testid="stPopover"] button * {
+    display: none !important;
+}
+
+/* Forcefully inject a pure, thin ChatGPT Plus icon */
+div[data-testid="stPopover"] button::after {
+    content: "+" !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.8rem !important;
+    font-weight: 300 !important;
+    /* Slightly more weight since it's smaller */
+    color: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 0 !important;
+    transform: translateY(-2px) !important;
+    /* Center alignment */
+}
+
+.st-key-voice_mic_btn button:hover,
+div[data-testid="stPopover"] button:hover {
+    color: #00d2ff !important;
+    transform: scale(1.1) !important;
+}
+
+/* ── Custom Popover Menu (ChatGPT Style) ── */
+/* Crush the massive default padding and gaps inside the popover window */
+[data-testid="stPopoverBody"] {
+    padding: 10px 12px !important;
+    min-width: 230px !important;
+    border-radius: 12px !important;
+}
+
+[data-testid="stPopoverBody"] [data-testid="stVerticalBlock"] {
+    gap: 6px !important;
+}
+
+.stRadio div[role="radiogroup"]>label {
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    transition: background 0.2s !important;
+    cursor: pointer !important;
+    margin-bottom: 2px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+}
+
+.stRadio div[role="radiogroup"]>label:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.stRadio div[role="radiogroup"] span[data-baseweb="radio"],
+.stRadio div[role="radiogroup"] label>div:first-child,
+.stRadio div[role="radiogroup"] label>div:has(input),
+.stRadio div[role="radiogroup"] input[type="radio"] {
+    display: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.stRadio div[role="radiogroup"] p {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+}
+
+/* ── Premium Minimalist File Uploader ── */
+.stFileUploader {
+    margin-bottom: 10px !important;
+}
+
+.stFileUploader label {
+    font-size: 0.75rem !important;
+    color: #a1a1aa !important;
+    margin-bottom: 4px !important;
+    padding-bottom: 0 !important;
+}
+
+/* Strip the dropzone box */
+.stFileUploader>div:last-child,
+.stFileUploader>section {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+}
+
+/* Hide cloud icon, limit text, and 'Drag and drop' text ONLY inside dropzone */
+.stFileUploader>div:last-child svg,
+.stFileUploader>section svg,
+.stFileUploader>div:last-child small,
+.stFileUploader>section small,
+.stFileUploader>div:last-child [data-testid="stMarkdownContainer"],
+.stFileUploader>section [data-testid="stMarkdownContainer"] {
+    display: none !important;
+}
+
+/* Aggressively hide any text elements inside the dropzone EXCEPT the button */
+.stFileUploader>div:last-child>div:first-of-type,
+.stFileUploader>section>div:first-of-type {
+    display: none !important;
+}
+
+/* Style the browse button */
+.stFileUploader button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 40px !important;
+    height: auto !important;
+    line-height: 1.2 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: #e4e4e7 !important;
+    padding: 10px 16px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    transition: all 0.2s ease !important;
+}
+
+.stFileUploader button:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #00d2ff !important;
+    color: #fff !important;
+    transform: scale(1.02) !important;
+}
+
+/* ── Clickable Floating Attachment Pill ── */
+.st-key-floating_pill_container {
+    position: fixed !important;
+    bottom: 6.5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 1000 !important;
+    width: auto !important;
+    animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+
+    /* Make the container itself the Pill */
+    background: rgba(10, 10, 15, 0.85) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    padding: 6px 16px !important;
+    border-radius: 30px !important;
+    border: 1px solid #00d2ff !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 210, 255, 0.3) !important;
+
+    /* Align image and button side-by-side */
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+.st-key-floating_pill_container:hover {
+    border-color: #ff4b4b !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 75, 75, 0.3) !important;
+}
+
+.attachment-thumbnail {
+    height: 32px;
+    width: 32px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.st-key-floating_pill_container button {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    padding: 0 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.st-key-floating_pill_container button p {
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+}
+
+.st-key-floating_pill_container button:hover {
+    color: #ff4b4b !important;
+    background: transparent !important;
+    transform: none !important;
+}
+
+/* ── Welcome Screen (Empty State) ───────────────────────────────────────────── */
+.welcome-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 2rem;
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.welcome-logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: floatLogo 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.4));
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #ffffff, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.welcome-subtitle {
+    color: var(--text-zinc-400);
+    max-width: 500px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.welcome-card:hover .welcome-logo {
+    filter: drop-shadow(0 0 30px rgba(0, 210, 255, 0.8));
+}
+
+/* ── Navigation Container ────────────────────────────────────────────────── */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(9, 9, 11, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+
+.nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.nav-logo .logo-vox {
+    color: #ffffff;
+}
+
+.nav-logo .logo-mind {
+    color: #00d2ff;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+}
+
+.lang-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.welcome-card:hover .welcome-logo {
+    filter: grayscale(0);
+    transform: scale(1.15);
+}
+
+@keyframes brainPulse {
+    0% {
+        transform: scale(0.98);
+        filter: grayscale(1);
+    }
+
+    100% {
+        transform: scale(1.08);
+        filter: grayscale(0.3);
+    }
+}
+
+/* Inject breathing animation into the chat assistant brain avatar */
+div[data-testid="stChatMessage"]:has(span[aria-label="assistant"]) [data-testid="stChatMessageAvatar"] {
+    animation: brainPulseChat 3s ease-in-out infinite alternate !important;
+}
+
+@keyframes brainPulseChat {
+    0% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+.welcome-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+    color: var(--text-zinc-400);
+    font-size: 1.1rem;
+    max-width: 500px;
+}
+
+/* ── Quick-Action Suggestion Chips ──────────────────────────────────────────── */
+div[class*="st-key-chip_"] button {
+    background: var(--bg-zinc-900) !important;
+    border: 1px solid var(--border-zinc-800) !important;
+    border-radius: 14px !important;
+    color: var(--text-zinc-400) !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    padding: 0.9rem 0.8rem !important;
+    text-align: left !important;
+    line-height: 1.4 !important;
+    transition: var(--transition) !important;
+    min-height: 80px !important;
+}
+
+div[class*="st-key-chip_"] button:hover {
+    background: var(--bg-zinc-800) !important;
+    border-color: #00d2ff !important;
+    color: var(--text-zinc-50) !important;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.15) !important;
+    transform: translateY(-3px) !important;
+}
+
+/* ── Micro-Animations ───────────────────────────────────────────────────────── */
+.pulse-mic {
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes chatPulse {
+    0% {
+        border-color: rgba(0, 210, 255, 0.3);
+    }
+
+    50% {
+        border-color: rgba(0, 210, 255, 0.8);
+    }
+
+    100% {
+        border-color: rgba(0, 210, 255, 0.3);
+    }
+}
+
+/* ── Web Search Toggle Button ── */
+.st-key-web_search_container {
+    position: fixed !important;
+    bottom: 2.50rem !important;
+    left: calc(50vw - min(50vw, 425px) + 3.8rem) !important;
+    z-index: 1005 !important;
+    width: auto !important;
+}
+
+@media (max-width: 880px) {
+    .st-key-web_search_container {
+        left: 3.8rem !important;
+    }
+}
+
+.st-key-web_search_container button {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 0px 10px !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    color: #a1a1aa !important;
+    height: 1.8rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    transition: all 0.2s ease !important;
+}
+
+.st-key-web_search_container button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Ensure the icon scales appropriately */
+.st-key-web_search_container button span.material-symbols-rounded {
+    font-size: 1.1rem !important;
+}
+
+/* High-quality scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-zinc-800);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-zinc-400);
+}
+
+/* ── Sidebar (The Vault) ────────────────────────────────────────────────── */
+section[data-testid="stSidebar"] {
+    background: rgba(10, 10, 15, 0.4) !important;
+    background-color: rgba(10, 10, 15, 0.4) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    backdrop-filter: blur(25px) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Force flexbox for sticky bottom behavior */
+section[data-testid="stSidebar"]>div:first-child {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+}
+
+/* Push bottom container to the end */
+[data-testid="stVerticalBlock"]:has(div.st-key-sidebar_bottom) {
+    margin-top: auto !important;
+    padding-bottom: 2rem !important;
+    border-top: 1px solid var(--border-zinc-800);
+}
+
+/* Minimalist New Chat Button */
+.st-key-new_chat_btn button {
+    background: transparent !important;
+    border: 1px solid var(--border-zinc-800) !important;
+    color: var(--text-zinc-50) !important;
+    border-radius: 12px !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 2rem !important;
+    transition: var(--transition) !important;
+}
+
+.st-key-new_chat_btn button:hover {
+    background: var(--bg-zinc-900) !important;
+    border-color: var(--text-zinc-400) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* History Item Styling */
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: var(--text-zinc-400);
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-item:hover {
+    background: var(--bg-zinc-900);
+    color: var(--text-zinc-50);
+    border-color: var(--border-zinc-800);
+}
+
+.history-icon {
+    font-size: 1rem;
+    opacity: 0.6;
+}
+
+/* ── Premium Code Blocks ────────────────────────────────────────────────────── */
+.stCodeBlock {
+    background: #0f111a !important;
+    /* Deep dark blueish background */
+    border: 1px solid #1f2335 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden;
+}
+
+.stCodeBlock code {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.95rem !important;
+}
+
+.thinking-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px;
+}
+
+.thinking-indicator .dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--secondary-cyan);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.thinking-indicator .dot:nth-child(1) { animation-delay: -0.32s; }
+.thinking-indicator .dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* ── Mobile View Enhancements (Native App Feel) ────────────────────────────── */
+@media screen and (max-width: 768px) {
+    .block-container {
+        padding: 1rem 0.5rem 6rem 0.5rem !important; 
+    }
+    div[data-testid="stChatMessage"] {
+        padding: 10px 12px !important;
+        margin: 5px 0 !important;
+        border-radius: 12px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    div[data-testid="stChatMessage"] [data-testid="stChatMessageAvatar"] {
+        width: 1.8rem !important;
+        height: 1.8rem !important;
+    }
+    .stMarkdown p, .stMarkdown div, .message-text, div[data-testid="stChatMessage"] {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+    }
+    .stButton button {
+        padding: 6px 10px !important;
+        min-height: 2.2rem !important;
+        font-size: 0.85rem !important;
+    }
+    div[data-testid="stChatInput"] {
+        padding: 0.5rem !important;
+        border-radius: 16px !important;
+    }
+    div[data-testid="stPopover"] {
+        bottom: 80px !important;
+        left: 5px !important;
+    }
+    .nav-container {
+        padding: 8px 12px !important;
+        border-radius: 0 0 12px 12px !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        z-index: 99 !important;
+        backdrop-filter: blur(15px) !important;
+    }
+    .welcome-card {
+        padding: 4rem 1rem 1rem !important;
+    }
+    .welcome-title {
+        font-size: 1.5rem !important;
+    }
+    [data-testid="stSidebarCollapsedControl"] {
+        top: 0.6rem !important;
+        left: 0.5rem !important;
+        width: 35px !important;
+        height: 35px !important;
+        z-index: 100 !important;
+    }
+    .stCodeBlock {
+        max-width: 90vw !important;
+        overflow-x: auto !important;
+    }
+}
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 0;
+    margin-left: 10px;
+}
+
+.thinking-indicator .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #00d2ff;
+    border-radius: 50%;
+    animation: thinkingBounce 1.4s infinite ease-in-out both;
+}
+
+.thinking-indicator .dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.thinking-indicator .dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes thinkingBounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+        opacity: 0.3;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 10px #00d2ff;
+    }
+}
+
+/* ── Audio Visualizer (Voice Input) ─────────────────────────────────────────── */
+.audio-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 50px;
+    margin: 15px 0;
+}
+
+.audio-visualizer .bar {
+    width: 6px;
+    height: 10px;
+    background: linear-gradient(180deg, #00f2fe, #00d2ff);
+    border-radius: 3px;
+    animation: audioBounce 0.8s infinite ease-in-out alternate;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.7);
+    margin: 0 2px;
+}
+
+.audio-visualizer .bar:nth-child(1) {
+    animation-delay: 0.0s;
+    height: 15px;
+}
+
+.audio-visualizer .bar:nth-child(2) {
+    animation-delay: 0.2s;
+    height: 25px;
+}
+
+.audio-visualizer .bar:nth-child(3) {
+    animation-delay: 0.4s;
+    height: 35px;
+}
+
+.audio-visualizer .bar:nth-child(4) {
+    animation-delay: 0.1s;
+    height: 45px;
+}
+
+.audio-visualizer .bar:nth-child(5) {
+    animation-delay: 0.5s;
+    height: 50px;
+}
+
+.audio-visualizer .bar:nth-child(6) {
+    animation-delay: 0.3s;
+    height: 40px;
+}
+
+.audio-visualizer .bar:nth-child(7) {
+    animation-delay: 0.6s;
+    height: 40px;
+}
+
+.audio-visualizer .bar:nth-child(8) {
+    animation-delay: 0.2s;
+    height: 50px;
+}
+
+.audio-visualizer .bar:nth-child(9) {
+    animation-delay: 0.7s;
+    height: 45px;
+}
+
+.audio-visualizer .bar:nth-child(10) {
+    animation-delay: 0.1s;
+    height: 35px;
+}
+
+.audio-visualizer .bar:nth-child(11) {
+    animation-delay: 0.5s;
+    height: 25px;
+}
+
+.audio-visualizer .bar:nth-child(12) {
+    animation-delay: 0.3s;
+    height: 15px;
+}
+
+@keyframes audioBounce {
+    0% {
+        transform: scaleY(0.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scaleY(1.8);
+        opacity: 1;
+    }
+}
+
+/* ── Message Timestamps ─────────────────────────────────────────────────────── */
+.msg-timestamp {
+    color: #52525b;
+    font-size: 0.72rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
+    margin-top: 6px;
+    padding-left: 2px;
+}
+
+
+/* Align popover buttons and remove extra padding */
+div[data-testid='stPopoverBody'] button[kind='tertiary'] { justify-content: flex-start !important; padding-left: 0px !important; }
+div[data-testid='stPopoverBody'] button[kind='tertiary'] p { text-align: left !important; width: 100% !important; margin: 0 !important; }
+
+/* Make the file uploader button wrapper stretch full width */
+/* Make the file uploader button wrapper stretch full width */
+.stFileUploader section > span {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* ── File Upload Preview Pill ── */
+.upload-preview-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(10, 15, 30, 0.85) 0%, rgba(15, 25, 50, 0.75) 100%) !important;
+    border: 1px solid rgba(0, 210, 255, 0.2) !important;
+    border-radius: 14px !important;
+    padding: 10px 18px !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 210, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    margin-bottom: 4px !important;
+    width: 100% !important;
+    animation: pillSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes pillSlideIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.upload-preview-pill .file-icon-wrap {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 10px;
+    background: rgba(0, 210, 255, 0.1);
+    border: 1px solid rgba(0, 210, 255, 0.15);
+    flex-shrink: 0;
+}
+
+div[class*="st-key-clear_upload_btn"] button {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 50% !important;
+    height: 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-width: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #71717a !important;
+    padding: 0 !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+div[class*="st-key-clear_upload_btn"] button:hover {
+    background: rgba(239, 68, 68, 0.12) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+    color: #ef4444 !important;
+    transform: scale(1.1) !important;
+}
+
+/* ── Compact Popover File Uploaders ── */
+[data-testid="stPopoverBody"] {
+    padding: 12px !important;
+    gap: 8px !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] {
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    min-height: 30px !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] > div > span {
+    display: none !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] > div > small {
+    display: none !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] > div > svg {
+    display: none !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] button {
+    margin: 0 !important;
+    padding: 6px 10px !important;
+    min-height: 30px !important;
+    font-size: 0.75rem !important;
+    justify-content: center;
+    gap: 4px;
+    height: 50px;
+    margin: 15px 0;
+}
+
+.audio-visualizer .bar {
+    width: 6px;
+    height: 10px;
+    background: linear-gradient(180deg, #00f2fe, #00d2ff);
+    border-radius: 3px;
+    animation: audioBounce 0.8s infinite ease-in-out alternate;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.7);
+    margin: 0 2px;
+}
+
+.audio-visualizer .bar:nth-child(1) {
+    animation-delay: 0.0s;
+    height: 15px;
+}
+
+.audio-visualizer .bar:nth-child(2) {
+    animation-delay: 0.2s;
+    height: 25px;
+}
+
+.audio-visualizer .bar:nth-child(3) {
+    animation-delay: 0.4s;
+    height: 35px;
+}
+
+.audio-visualizer .bar:nth-child(4) {
+    animation-delay: 0.1s;
+    height: 45px;
+}
+
+.audio-visualizer .bar:nth-child(5) {
+    animation-delay: 0.5s;
+    height: 50px;
+}
+
+.audio-visualizer .bar:nth-child(6) {
+    animation-delay: 0.3s;
+    height: 40px;
+}
+
+.audio-visualizer .bar:nth-child(7) {
+    animation-delay: 0.6s;
+    height: 40px;
+}
+
+.audio-visualizer .bar:nth-child(8) {
+    animation-delay: 0.2s;
+    height: 50px;
+}
+
+.audio-visualizer .bar:nth-child(9) {
+    animation-delay: 0.7s;
+    height: 45px;
+}
+
+.audio-visualizer .bar:nth-child(10) {
+    animation-delay: 0.1s;
+    height: 35px;
+}
+
+.audio-visualizer .bar:nth-child(11) {
+    animation-delay: 0.5s;
+    height: 25px;
+}
+
+.audio-visualizer .bar:nth-child(12) {
+    animation-delay: 0.3s;
+    height: 15px;
+}
+
+@keyframes audioBounce {
+    0% {
+        transform: scaleY(0.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scaleY(1.8);
+        opacity: 1;
+    }
+}
+
+/* ── Message Timestamps ─────────────────────────────────────────────────────── */
+.msg-timestamp {
+    color: #52525b;
+    font-size: 0.72rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
+    margin-top: 6px;
+    padding-left: 2px;
+}
+
+
+/* Align popover buttons and remove extra padding */
+div[data-testid='stPopoverBody'] button[kind='tertiary'] { justify-content: flex-start !important; padding-left: 0px !important; }
+div[data-testid='stPopoverBody'] button[kind='tertiary'] p { text-align: left !important; width: 100% !important; margin: 0 !important; }
+
+/* Make the file uploader button wrapper stretch full width */
+/* Make the file uploader button wrapper stretch full width */
+.stFileUploader section > span {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* ── File Upload Preview Pill ── */
+.upload-preview-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(10, 15, 30, 0.85) 0%, rgba(15, 25, 50, 0.75) 100%) !important;
+    border: 1px solid rgba(0, 210, 255, 0.2) !important;
+    border-radius: 14px !important;
+    padding: 10px 18px !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 210, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+    margin-bottom: 4px !important;
+    width: 100% !important;
+    animation: pillSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes pillSlideIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.upload-preview-pill .file-icon-wrap {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 10px;
+    background: rgba(0, 210, 255, 0.1);
+    border: 1px solid rgba(0, 210, 255, 0.15);
+    flex-shrink: 0;
+}
+
+div[class*="st-key-clear_upload_btn"] button {
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 50% !important;
+    height: 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-width: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #71717a !important;
+    padding: 0 !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+div[class*="st-key-clear_upload_btn"] button:hover {
+    background: rgba(239, 68, 68, 0.12) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+    color: #ef4444 !important;
+    transform: scale(1.1) !important;
+}
+
+/* ── Compact Popover File Uploaders ── */
+[data-testid="stPopoverBody"] {
+    padding: 12px !important;
+    gap: 8px !important;
+    background-color: #0e111a !important; /* Solid dark background */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    z-index: 999999 !important; /* Force it above everything */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] {
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    min-height: 30px !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] > div > span {
+    display: none !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] > div > small {
+    display: none !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] > div > svg {
+    display: none !important;
+}
+
+[data-testid="stPopoverBody"] section[data-testid="stFileUploadDropzone"] button {
+    margin: 0 !important;
+    padding: 6px 10px !important;
+    min-height: 30px !important;
+    font-size: 0.75rem !important;
+    width: 100% !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stPopoverBody"] [data-testid="stMarkdownContainer"] p {
+    margin-bottom: 2px !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+}
+
+/* Force top buttons left */
+[data-testid="stPopoverBody"] div.stButton {
+    margin-bottom: -2px !important; /* Perfect professional gap */
+    margin-left: -5px !important; /* Gentle pull */
+}
+[data-testid="stPopoverBody"] button[data-testid="baseButton-tertiary"],
+[data-testid="stPopoverBody"] button[kind="tertiary"] {
+    justify-content: flex-start !important;
+    padding-left: 5px !important; /* Give space for icon */
+    min-height: 32px !important; /* Professional height */
+}
+[data-testid="stPopoverBody"] button[data-testid="baseButton-tertiary"] div,
+[data-testid="stPopoverBody"] button[kind="tertiary"] div {
+    justify-content: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+    display: flex !important;
+}
+[data-testid="stPopoverBody"] button[data-testid="baseButton-tertiary"] p,
+[data-testid="stPopoverBody"] button[kind="tertiary"] p {
+    text-align: left !important;
+    width: 100% !important;
+    margin: 0 !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+}
+
+/* Fix hr */
+[data-testid="stPopoverBody"] hr {
+    margin-top: 15px !important;
+    margin-bottom: 5px !important;
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+    width: calc(100% + 24px) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+}
+
+/* ── Upload Preview Bar (Bulletproof CSS) ── */
+[data-testid="stHorizontalBlock"]:has(#upload-preview-container) {
+    background-color: #0f111a !important; /* Slightly lighter than app bg so it pops */
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px !important;
+    padding: 10px 16px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+    position: fixed !important;
+    bottom: 95px !important;
+    width: calc(100% - 2rem) !important; /* Account for padding */
+    max-width: 840px !important;
+    z-index: 99999 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    align-items: center !important;
+    gap: 0 !important;
+    transition: opacity 0.2s ease-out !important;
+}
+
+/* File Uploader override */
+.stFileUploader {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+.stFileUploader section {
+    padding: 0px !important;
+    border: none !important;
+    background: transparent !important;
+    min-height: 0px !important;
+}
+.stFileUploader section > div > svg,
+.stFileUploader section > div > small,
+.stFileUploader section > div > span:first-of-type {
+    display: none !important;
+}
+.stFileUploader section button span {
+    display: inline !important;
+    font-size: 0.65rem !important;
+}
+.stFileUploader section button {
+    height: 26px !important;
+    min-height: 26px !important;
+    padding: 2px 10px !important;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    margin-top: 5px !important;
+    width: auto !important;
+    display: block !important;
+}
+
+
+
+/* ==========================================================================
+   MOBILE RESPONSIVE OVERRIDES (PROFESSIONAL LEVEL)
+   These rules ONLY apply to mobile screens (max-width: 768px)
+   and ensure that desktop styles remain completely untouched.
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+    /* 1. Fix Action Buttons (Listen, Stop, Copy, Like) Stacking */
+    /* Streamlit overrides column widths to 100% on mobile. We must reset them! */
+    div[data-testid="stChatMessage"] div[data-testid="stHorizontalBlock"] {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 6px !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+    
+    div[data-testid="stChatMessage"] div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+        width: auto !important;
+        min-width: 0 !important;
+        flex: 0 0 auto !important;
+    }
+
+    div[data-testid="stChatMessage"] div[data-testid="stHorizontalBlock"] button {
+        padding: 4px 6px !important;
+        min-height: 2.2rem !important;
+        width: auto !important;
+    }
+
+    /* 2. ChatGPT-Style Mobile Chat Input Box */
+    /* Make the chat input look sleek and pill-shaped */
+    div[data-testid="stChatInput"] {
+        padding: 10px !important;
+        background: transparent !important;
+    }
+
+    div[data-testid="stChatInput"] textarea {
+        padding-left: 3.5rem !important;  /* Space for + button */
+        padding-right: 5.5rem !important; /* Space for Mic and Send buttons */
+        border-radius: 24px !important;
+        min-height: 50px !important;
+        padding-top: 14px !important;
+    }
+
+    /* Send/Stop Button (Far Right) */
+    div[data-testid="stChatInput"] button {
+        position: absolute !important;
+        right: 0.5rem !important;
+        bottom: 0.5rem !important;
+        height: 38px !important;
+        width: 38px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* The Voice Mic Button (Next to Send) */
+    .st-key-voice_mic_btn {
+        left: auto !important;
+        right: 3.5rem !important;
+        bottom: 1.0rem !important;
+        width: 38px !important;
+        height: 38px !important;
+    }
+
+    /* The + (Popover) Button (Far Left) */
+    div[data-testid="stPopover"] {
+        left: 0.5rem !important;
+        bottom: 1.0rem !important;
+        width: 38px !important;
+        height: 38px !important;
+        z-index: 1005 !important;
+    }
+    
+    div[data-testid="stPopover"] button {
+        height: 38px !important;
+        width: 38px !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+    }
+
+    /* Float the Web Search Pill ABOVE the input box (ChatGPT Style) */
+    .st-key-web_search_container {
+        left: 50vw !important;
+        transform: translateX(-50%) !important;
+        bottom: 80px !important; /* Float above the chat box */
+        z-index: 1005 !important;
+    }
+    .st-key-web_search_container button {
+        background: rgba(15, 17, 26, 0.9) !important;
+        backdrop-filter: blur(10px) !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+    }
+
+    /* 3. Fix Sidebar Recent Chats from Stacking */
+    section[data-testid="stSidebar"] {
+        width: 85vw !important;
+        max-width: 320px !important;
+    }
+
+    section[data-testid="stSidebar"] [data-testid="stHorizontalBlock"] {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+    }
+    
+    /* Chat Session Text Button */
+    section[data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div[data-testid="column"]:nth-child(1) {
+        width: 85% !important;
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+    }
+    
+    /* Trash Can Delete Button */
+    section[data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div[data-testid="column"]:nth-child(2) {
+        width: 15% !important;
+        min-width: 0 !important;
+        flex: 0 0 auto !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+
+    /* 4. Fix Floating File Upload Preview Stacking */
+    [data-testid="stHorizontalBlock"]:has(#upload-preview-container) {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        width: 90vw !important;
+        left: 5vw !important;
+        transform: none !important;
+        bottom: 120px !important; /* Move higher up so it doesn't overlap Web Search pill */
+        padding: 8px 12px !important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(#upload-preview-container) > div[data-testid="column"] {
+        width: auto !important;
+        min-width: 0 !important;
+    }
+
+    [data-testid="stHorizontalBlock"]:has(#upload-preview-container) > div[data-testid="column"]:nth-child(2) {
+        flex: 1 1 auto !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+    }
+}

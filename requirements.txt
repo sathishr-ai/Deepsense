@@ -1,0 +1,39 @@
+# ── VoxMind – Requirements ────────────────────────────────────────────────────
+# Install all with: pip install -r requirements.txt
+
+# ── Core UI ───────────────────────────────────────────────────────────────────
+streamlit>=1.35.0              # Web UI framework
+
+# ── Speech Recognition (STT) ──────────────────────────────────────────────────
+SpeechRecognition>=3.10.0      # Primary STT engine (uses Google Web Speech API)
+pyaudio>=0.2.14                # Microphone access (required by SpeechRecognition)
+# If pyaudio fails on Linux: sudo apt-get install portaudio19-dev python3-pyaudio
+# If on Mac: brew install portaudio
+
+# ── Text-to-Speech (TTS) ─────────────────────────────────────────────────────
+pyttsx3>=2.90                  # Offline TTS (primary)
+gTTS>=2.5.0                    # Google TTS for Tamil and fallback
+pygame>=2.5.0                  # Audio playback for gTTS mp3 output
+
+# ── AI / NLP ──────────────────────────────────────────────────────────────────
+openai>=1.35.0                 # OpenAI GPT-4o-mini API
+
+# ── Deep Learning (Seq2Seq LSTM) ─────────────────────────────────────────────
+tensorflow>=2.15.0             # Deep learning framework (Encoder-Decoder LSTM)
+numpy>=1.26.0                  # Numerical computing
+nltk>=3.8.0                    # NLP: tokenization, stemming, BLEU score
+matplotlib>=3.8.0              # Training curves & evaluation plots
+seaborn>=0.13.0                # Enhanced visualizations
+
+# ── Language Detection ────────────────────────────────────────────────────────
+langdetect>=1.0.9              # Detect input language (English vs Tamil)
+
+# ── Environment Config ────────────────────────────────────────────────────────
+python-dotenv>=1.0.0           # Load OPENAI_API_KEY from .env file
+
+# ── Optional: Whisper (offline STT fallback) ──────────────────────────────────
+# Uncomment to enable local Whisper transcription (no internet required):
+# openai-whisper>=20231117
+# soundfile>=0.12.1
+# numpy>=1.26.0
+# torch>=2.1.0                 # Required by Whisper (large download ~2GB)
