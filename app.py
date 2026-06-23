@@ -578,9 +578,8 @@ with st.sidebar:
                     index=0,
                     key="engine_sel",
                 )
-
         st.markdown(
-            "<div style='text-align:center; padding-top:10px;'><small style='color:var(--text-zinc-400); opacity:0.6;'>DeepSense v2.1</small></div>",
+            "<div style='text-align:center; padding-top:15px; margin-top:15px; border-top: 1px solid rgba(255,255,255,0.05);'><small style='color:var(--text-zinc-400); opacity:0.8; font-family:\"JetBrains Mono\", monospace; font-size:0.7rem; letter-spacing:1px;'><span style='color:#00ffaa; text-shadow: 0 0 5px #00ffaa;'>●</span> NEURAL CORE ONLINE</small></div>",
             unsafe_allow_html=True,
         )
 
