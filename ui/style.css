@@ -198,14 +198,14 @@ header[data-testid="stHeader"] {
 /* ── New Chat Button (ChatGPT Style) ── */
 [data-testid="stSidebarUserContent"] div.st-key-new_chat_btn button,
 [data-testid="stSidebarUserContent"] div.st-key-new_chat_btn button:focus {
-    background-color: #202123 !important;
-    background: #202123 !important;
+    background-color: transparent !important;
+    background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     display: flex !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    padding: 10px 14px !important;
+    padding: 5px 0px !important; /* Removed box padding */
     font-size: 0.95rem !important;
     color: #ffffff !important;
     border-radius: 8px !important;
@@ -220,14 +220,15 @@ header[data-testid="stHeader"] {
     width: 100% !important;
 }
 [data-testid="stSidebarUserContent"] div.st-key-new_chat_btn button:hover {
-    background-color: #2a2b32 !important;
-    background: #2a2b32 !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #10a37f !important; /* ChatGPT green hover effect */
 }
 
 /* ── Sidebar Search Box ── */
 div.st-key-history_search {
-    margin-top: -10px !important;
-    padding-left: 10px !important; /* Align with New Chat icon */
+    margin-top: -35px !important;
+    padding-left: 0px !important; /* Align exactly with New Chat text */
 }
 div.st-key-new_chat_btn {
     margin-bottom: 0px !important;
