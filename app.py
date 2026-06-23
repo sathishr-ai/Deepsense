@@ -97,7 +97,37 @@ if "splash_shown" not in st.session_state:
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     overflow: hidden;
     font-family: 'Outfit', sans-serif;
-    animation: fadeOutSplash 4.2s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+    animation: fadeOutSplash 4.8s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+}
+
+/* Radar Scanline Effect */
+.radar-scan {
+    position: absolute;
+    top: -100vh; left: 0;
+    width: 100vw; height: 20vh;
+    background: linear-gradient(to bottom, rgba(0,210,255,0) 0%, rgba(0,210,255,0.15) 80%, rgba(0,210,255,0) 100%);
+    animation: scanline 4s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Boot Sequence Log */
+.boot-log {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.8;
+    color: rgba(0, 210, 255, 0.7);
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+    white-space: pre;
+    z-index: 4;
+}
+
+.boot-log::after {
+    content: "";
+    animation: bootLogSequence 4.5s steps(1) forwards;
 }
 
 /* Premium Precision Rings */
@@ -106,6 +136,7 @@ if "splash_shown" not in st.session_state:
     width: 320px; height: 320px;
     display: flex; justify-content: center; align-items: center;
     margin-bottom: 2rem;
+    z-index: 3;
 }
 
 .ring-track {
@@ -115,7 +146,7 @@ if "splash_shown" not in st.session_state:
 }
 
 .ring-track-1 { width: 300px; height: 300px; border: 1px solid rgba(0,212,255,0.1); }
-.ring-track-2 { width: 220px; height: 220px; border: 1px dashed rgba(255,255,255,0.1); animation: spinSweepReverse 30s linear infinite;}
+.ring-track-2 { width: 220px; height: 220px; border: 1px dashed rgba(255,255,255,0.15); animation: spinSweepReverse 20s linear infinite;}
 .ring-track-3 { width: 140px; height: 140px; }
 
 .sweep {
@@ -157,7 +188,7 @@ if "splash_shown" not in st.session_state:
 .splash-content {
     z-index: 3;
     display: flex; flex-direction: column; align-items: center;
-    animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideUpFade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .splash-logo {
@@ -233,7 +264,7 @@ if "splash_shown" not in st.session_state:
     top: 0; left: 0; height: 100%; width: 0%;
     background: linear-gradient(90deg, transparent, #00d2ff, #ffffff);
     box-shadow: 0 0 15px #00d2ff;
-    animation: fillProgress 4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+    animation: fillProgress 4.6s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
 .progress-fill::after {
@@ -246,6 +277,20 @@ if "splash_shown" not in st.session_state:
     background: #ffffff;
     border-radius: 50%;
     box-shadow: 0 0 12px 4px #00d2ff;
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-20vh); }
+    100% { transform: translateY(120vh); }
+}
+
+@keyframes bootLogSequence {
+    0% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS..."; }
+    15% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES..."; }
+    30% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS..."; }
+    45% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS... [OK]\\A> INITIALIZING VOICE RECOGNITION..."; }
+    60% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS... [OK]\\A> INITIALIZING VOICE RECOGNITION... [OK]\\A> DECRYPTING SECURE TOKENS..."; }
+    80% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS... [OK]\\A> INITIALIZING VOICE RECOGNITION... [OK]\\A> DECRYPTING SECURE TOKENS... [OK]\\A> CORE SECURE."; color: #00ffaa;}
 }
 
 @keyframes spinSweep {
@@ -277,13 +322,13 @@ if "splash_shown" not in st.session_state:
 }
 
 @keyframes fadeOutSplash {
-    0%, 85% { opacity: 1; visibility: visible; }
+    0%, 90% { opacity: 1; visibility: visible; }
     100% { opacity: 0; visibility: hidden; }
 }
 
 .sys-boot::after { 
     content: "";
-    animation: textGlitch 4s steps(1) forwards; 
+    animation: textGlitch 4.6s steps(1) forwards; 
 }
 @keyframes textGlitch {
     0% { content: "INITIALIZING CORE..."; color: #00d2ff;}
@@ -295,7 +340,7 @@ if "splash_shown" not in st.session_state:
 
 .sys-mem::after { 
     content: "";
-    animation: memTick 4s steps(1) forwards; 
+    animation: memTick 4.6s steps(1) forwards; 
 }
 @keyframes memTick {
     0% { content: "0.0 TB"; }
@@ -307,6 +352,9 @@ if "splash_shown" not in st.session_state:
 </style>
 
 <div class="solid-splash">
+<div class="radar-scan"></div>
+<div class="boot-log"></div>
+
 <div class="orbital-core">
 <div class="ring-track ring-track-1"></div>
 <div class="sweep sweep-1"></div>
@@ -373,8 +421,8 @@ if "splash_shown" not in st.session_state:
 </div>
 """, unsafe_allow_html=True)
         
-        # Force the Python backend to hold this screen for exactly 3.8 seconds to let the fade-out complete
-        time.sleep(3.8)
+        # Force the Python backend to hold this screen for exactly 4.8 seconds to let the cinematic boot sequence complete
+        time.sleep(4.8)
         
     # Physically destroy the splash screen from the application DOM forever
     splash_placeholder.empty()
