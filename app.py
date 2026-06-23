@@ -485,8 +485,8 @@ def upgrade_plus_dialog():
 with st.sidebar:
     st.markdown("<h2 style='margin-top:0; font-family:Outfit;'>Workspace</h2>", unsafe_allow_html=True)
     
-    # New Chat Button (Minimalist)
-    if st.button("＋ New Chat", use_container_width=True, key="new_chat_btn", type="primary"):
+    # New Chat Button (ChatGPT Style)
+    if st.button("New chat", icon=":material/chat_bubble_outline:", use_container_width=True, key="new_chat_btn"):
         st.session_state.session_id = datetime.now().strftime("%Y%m%d%H%M%S")
         st.session_state.chat_history = []
         st.rerun()
