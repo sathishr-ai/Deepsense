@@ -202,25 +202,21 @@ if "splash_shown" not in st.session_state:
     font-size: 3.5rem;
     font-weight: 200;
     letter-spacing: 16px;
+    color: #ffffff;
     margin-right: -16px;
     text-transform: uppercase;
-    
-    /* Silver Metallic Chrome Effect for "DEEP" */
-    background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    
-    filter: drop-shadow(0 10px 25px rgba(0, 210, 255, 0.3));
+    text-shadow: 0 0 20px rgba(0, 210, 255, 0.6), 0 0 40px rgba(0, 210, 255, 0.4);
+    animation: pulseTextGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulseTextGlow {
+    0% { text-shadow: 0 0 15px rgba(0, 210, 255, 0.4), 0 0 30px rgba(0, 210, 255, 0.2); }
+    100% { text-shadow: 0 0 25px rgba(0, 210, 255, 0.8), 0 0 50px rgba(0, 210, 255, 0.5), 0 0 80px rgba(112, 0, 255, 0.3); }
 }
 
 .splash-logo b {
     font-weight: 600;
-    /* Vibrant Cyan-to-Blue Gradient for "SENSE" */
-    background: linear-gradient(90deg, #00d2ff 0%, #2563eb 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #ffffff;
 }
 
 .splash-subtitle {
