@@ -87,12 +87,10 @@ if "splash_shown" not in st.session_state:
 
 .solid-splash {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #02040a;
+    background-color: #02040a;
     background-image: 
-        radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.08) 0%, transparent 60%),
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 100% 100%, 50px 50px, 50px 50px;
+        radial-gradient(ellipse at 50% -20%, rgba(0, 210, 255, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 120%, rgba(112, 0, 255, 0.12) 0%, transparent 60%);
     z-index: 999999;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     overflow: hidden;
