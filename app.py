@@ -629,10 +629,16 @@ def process_message(text: str, image_b64: str = None, document_context: str = No
         # We wrap the generator to handle streaming and continuous state saving
         def stream_without_auto_tts():
             full_response = ""
+            import time
             for chunk in get_ai_response(text, context, use_openai, lang, engine_mode=engine_mode, image_b64=image_b64, document_context=document_context):
-                full_response += chunk
-                st.session_state.chat_history[msg_index]["text"] = full_response
-                yield chunk
+                # Smooth typewriter effect: yield small character chunks
+                chunk_size = 3
+                for i in range(0, len(chunk), chunk_size):
+                    piece = chunk[i:i+chunk_size]
+                    full_response += piece
+                    st.session_state.chat_history[msg_index]["text"] = full_response
+                    yield piece
+                    time.sleep(0.015)  # 15ms delay for realistic mechanical typing feel
 
         # Render the stream
         full_response = response_placeholder.write_stream(stream_without_auto_tts())
