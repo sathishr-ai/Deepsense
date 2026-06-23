@@ -491,13 +491,13 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.rerun()
 
+    # Full Functional Search Bar (Under New Chat)
+    search_query = st.text_input("🔍 Search Chats", key="history_search", label_visibility="collapsed", placeholder="🔍 Search chats...")
+
     st.markdown("<br>", unsafe_allow_html=True)
     
     # ── Recent Links (Session-based History) ──
     st.markdown("<small style='color:var(--text-zinc-400); font-weight:600; text-transform:uppercase; letter-spacing:1px;'>Recent Chats</small>", unsafe_allow_html=True)
-    
-    # Full Functional Search Bar
-    search_query = st.text_input("🔍 Search Chats", key="history_search", label_visibility="collapsed", placeholder="🔍 Search recent chats...")
 
     # Group history into unique sessions
     sessions = {}
