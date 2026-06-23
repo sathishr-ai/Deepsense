@@ -167,6 +167,25 @@ if "splash_shown" not in st.session_state:
     filter: drop-shadow(0 0 8px #00ffaa);
 }
 
+/* Premium Biometric Scanline */
+.biometric-laser {
+    position: absolute;
+    width: 120px;
+    height: 1.5px;
+    background: #ffffff;
+    box-shadow: 0 0 15px 3px #00d2ff, 0 -15px 15px rgba(0, 210, 255, 0.2);
+    border-radius: 50%;
+    z-index: 15;
+    animation: bioScan 3s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+@keyframes bioScan {
+    0% { transform: translateY(-70px); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { transform: translateY(70px); opacity: 0; }
+}
+
 /* Central AI SVG Logo */
 .splash-center-icon {
     position: absolute;
@@ -335,6 +354,8 @@ if "splash_shown" not in st.session_state:
 </div>
 
 <div class="orbital-core">
+<!-- Enterprise Biometric Laser Scan -->
+<div class="biometric-laser"></div>
 <div class="ring-track ring-track-1"></div>
 <div class="sweep sweep-1"></div>
 <div class="ring-track ring-track-2"></div>
