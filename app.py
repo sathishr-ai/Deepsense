@@ -80,6 +80,7 @@ if "splash_shown" not in st.session_state:
     
     splash_placeholder = st.empty()
     
+    with splash_placeholder.container():
         st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;600&family=JetBrains+Mono:wght@100;400&display=swap');

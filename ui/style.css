@@ -710,6 +710,7 @@ div[data-testid="stPopover"] button:hover {
     margin-bottom: 0.5rem;
     background: linear-gradient(90deg, #ffffff, #a1a1aa);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -1079,7 +1080,7 @@ section[data-testid="stSidebar"]>div:first-child {
         overflow-x: auto !important;
     }
 }
-
+.thinking-indicator {
     display: flex;
     align-items: center;
     gap: 6px;
