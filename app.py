@@ -100,6 +100,37 @@ if "splash_shown" not in st.session_state:
     animation: fadeOutSplash 4.8s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
+/* GOD-TIER HUD ELEMENTS */
+.hud-crosshair { position: absolute; background: rgba(0, 210, 255, 0.15); z-index: 1; pointer-events: none; }
+.hud-crosshair-v { top: 0; left: 50%; width: 1px; height: 100vh; transform: translateX(-50%); background: linear-gradient(to bottom, transparent, rgba(0,210,255,0.4) 50%, transparent); }
+.hud-crosshair-h { top: 50%; left: 0; width: 100vw; height: 1px; transform: translateY(-50%); background: linear-gradient(to right, transparent, rgba(0,210,255,0.4) 50%, transparent); }
+
+.hud-hex { position: absolute; top: 30px; right: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: rgba(0, 210, 255, 0.4); text-align: right; z-index: 4; }
+.hud-hex::after { content: ""; animation: hexDump 2s infinite; white-space: pre; }
+@keyframes hexDump {
+    0% { content: "0x00F1: FF AA 01\\A0x00F2: A1 B2 C3\\A0x00F3: 00 00 00"; }
+    20% { content: "0x01A4: 11 22 33\\A0x01A5: 44 55 66\\A0x01A6: 77 88 99"; }
+    40% { content: "0x02B1: EF AA 01\\A0x02B2: FF B2 C3\\A0x02B3: 00 00 00"; }
+    60% { content: "0x0A00: FF FF FF\\A0x0A01: 00 00 00\\A0x0A02: 1A 2B 3C"; }
+    80% { content: "0x0F00: 99 88 77\\A0x0F01: 66 55 44\\A0x0F02: 33 22 11"; }
+    100% { content: "0x00F1: FF AA 01\\A0x00F2: A1 B2 C3\\A0x00F3: 00 00 00"; }
+}
+
+.hud-audio { position: absolute; bottom: 40px; left: 40px; display: flex; gap: 4px; align-items: flex-end; height: 30px; z-index: 4; }
+.hud-audio .bar { width: 3px; background: #00d2ff; box-shadow: 0 0 8px #00d2ff; animation: bounceBar infinite ease-in-out alternate; }
+.hud-audio .bar:nth-child(1) { height: 10px; animation-duration: 0.3s; }
+.hud-audio .bar:nth-child(2) { height: 20px; animation-duration: 0.5s; }
+.hud-audio .bar:nth-child(3) { height: 15px; animation-duration: 0.4s; }
+.hud-audio .bar:nth-child(4) { height: 28px; animation-duration: 0.6s; }
+.hud-audio .bar:nth-child(5) { height: 12px; animation-duration: 0.35s; }
+.hud-audio .bar:nth-child(6) { height: 22px; animation-duration: 0.45s; }
+.hud-audio .bar:nth-child(7) { height: 8px; animation-duration: 0.2s; }
+@keyframes bounceBar { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1); } }
+
+.hud-warning { position: absolute; bottom: 40px; right: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #ff0055; border: 1px solid #ff0055; padding: 8px 12px; background: rgba(255, 0, 85, 0.1); box-shadow: 0 0 10px rgba(255, 0, 85, 0.3), inset 0 0 10px rgba(255, 0, 85, 0.2); text-align: right; z-index: 4; }
+.hud-warning .blink { animation: fastBlink 0.5s infinite; font-weight: bold; }
+@keyframes fastBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
 /* Radar Scanline Effect */
 .radar-scan {
     position: absolute;
@@ -352,8 +383,30 @@ if "splash_shown" not in st.session_state:
 </style>
 
 <div class="solid-splash">
+<!-- Full Screen Targeting Crosshair -->
+<div class="hud-crosshair hud-crosshair-v"></div>
+<div class="hud-crosshair hud-crosshair-h"></div>
+
 <div class="radar-scan"></div>
 <div class="boot-log"></div>
+<div class="hud-hex"></div>
+
+<!-- Audio Spectrum Analyzer -->
+<div class="hud-audio">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+</div>
+
+<!-- Threat/Warning Box -->
+<div class="hud-warning">
+    <span class="blink">⚠ CAUTION</span><br>
+    NEURAL LINK ACTIVE
+</div>
 
 <div class="orbital-core">
 <div class="ring-track ring-track-1"></div>
