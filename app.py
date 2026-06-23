@@ -100,65 +100,24 @@ if "splash_shown" not in st.session_state:
     animation: fadeOutSplash 4.8s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
-/* GOD-TIER HUD ELEMENTS */
-.hud-crosshair { position: absolute; background: rgba(0, 210, 255, 0.15); z-index: 1; pointer-events: none; }
-.hud-crosshair-v { top: 0; left: 50%; width: 1px; height: 100vh; transform: translateX(-50%); background: linear-gradient(to bottom, transparent, rgba(0,210,255,0.4) 50%, transparent); }
-.hud-crosshair-h { top: 50%; left: 0; width: 100vw; height: 1px; transform: translateY(-50%); background: linear-gradient(to right, transparent, rgba(0,210,255,0.4) 50%, transparent); }
-
-.hud-hex { position: absolute; top: 30px; right: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: rgba(0, 210, 255, 0.4); text-align: right; z-index: 4; }
-.hud-hex::after { content: ""; animation: hexDump 2s infinite; white-space: pre; }
-@keyframes hexDump {
-    0% { content: "0x00F1: FF AA 01\\A0x00F2: A1 B2 C3\\A0x00F3: 00 00 00"; }
-    20% { content: "0x01A4: 11 22 33\\A0x01A5: 44 55 66\\A0x01A6: 77 88 99"; }
-    40% { content: "0x02B1: EF AA 01\\A0x02B2: FF B2 C3\\A0x02B3: 00 00 00"; }
-    60% { content: "0x0A00: FF FF FF\\A0x0A01: 00 00 00\\A0x0A02: 1A 2B 3C"; }
-    80% { content: "0x0F00: 99 88 77\\A0x0F01: 66 55 44\\A0x0F02: 33 22 11"; }
-    100% { content: "0x00F1: FF AA 01\\A0x00F2: A1 B2 C3\\A0x00F3: 00 00 00"; }
+/* Elegant Bokeh Background Particles */
+.bokeh-particles {
+    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 1; pointer-events: none; overflow: hidden;
 }
-
-.hud-audio { position: absolute; bottom: 40px; left: 40px; display: flex; gap: 4px; align-items: flex-end; height: 30px; z-index: 4; }
-.hud-audio .bar { width: 3px; background: #00d2ff; box-shadow: 0 0 8px #00d2ff; animation: bounceBar infinite ease-in-out alternate; }
-.hud-audio .bar:nth-child(1) { height: 10px; animation-duration: 0.3s; }
-.hud-audio .bar:nth-child(2) { height: 20px; animation-duration: 0.5s; }
-.hud-audio .bar:nth-child(3) { height: 15px; animation-duration: 0.4s; }
-.hud-audio .bar:nth-child(4) { height: 28px; animation-duration: 0.6s; }
-.hud-audio .bar:nth-child(5) { height: 12px; animation-duration: 0.35s; }
-.hud-audio .bar:nth-child(6) { height: 22px; animation-duration: 0.45s; }
-.hud-audio .bar:nth-child(7) { height: 8px; animation-duration: 0.2s; }
-@keyframes bounceBar { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1); } }
-
-.hud-warning { position: absolute; bottom: 40px; right: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: #ff0055; border: 1px solid #ff0055; padding: 8px 12px; background: rgba(255, 0, 85, 0.1); box-shadow: 0 0 10px rgba(255, 0, 85, 0.3), inset 0 0 10px rgba(255, 0, 85, 0.2); text-align: right; z-index: 4; }
-.hud-warning .blink { animation: fastBlink 0.5s infinite; font-weight: bold; }
-@keyframes fastBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-/* Radar Scanline Effect */
-.radar-scan {
-    position: absolute;
-    top: -100vh; left: 0;
-    width: 100vw; height: 20vh;
-    background: linear-gradient(to bottom, rgba(0,210,255,0) 0%, rgba(0,210,255,0.15) 80%, rgba(0,210,255,0) 100%);
-    animation: scanline 4s linear infinite;
-    pointer-events: none;
-    z-index: 2;
+.bokeh {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,210,255,0.15) 0%, transparent 70%);
+    animation: floatBokeh 10s infinite ease-in-out alternate;
 }
+.b1 { width: 300px; height: 300px; left: 10%; top: 60%; animation-duration: 12s; }
+.b2 { width: 400px; height: 400px; left: 70%; top: 40%; animation-duration: 15s; }
+.b3 { width: 250px; height: 250px; left: 50%; top: -10%; animation-duration: 18s; }
+.b4 { width: 350px; height: 350px; left: -5%; top: 10%; animation-duration: 20s; }
 
-/* Boot Sequence Log */
-.boot-log {
-    position: absolute;
-    top: 30px;
-    left: 40px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    line-height: 1.8;
-    color: rgba(0, 210, 255, 0.7);
-    text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
-    white-space: pre;
-    z-index: 4;
-}
-
-.boot-log::after {
-    content: "";
-    animation: bootLogSequence 4.5s steps(1) forwards;
+@keyframes floatBokeh {
+    0% { transform: translate(0, 0) scale(0.8); opacity: 0.3; }
+    100% { transform: translate(40px, -40px) scale(1.1); opacity: 0.8; }
 }
 
 /* Premium Precision Rings */
@@ -310,20 +269,6 @@ if "splash_shown" not in st.session_state:
     box-shadow: 0 0 12px 4px #00d2ff;
 }
 
-@keyframes scanline {
-    0% { transform: translateY(-20vh); }
-    100% { transform: translateY(120vh); }
-}
-
-@keyframes bootLogSequence {
-    0% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS..."; }
-    15% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES..."; }
-    30% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS..."; }
-    45% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS... [OK]\\A> INITIALIZING VOICE RECOGNITION..."; }
-    60% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS... [OK]\\A> INITIALIZING VOICE RECOGNITION... [OK]\\A> DECRYPTING SECURE TOKENS..."; }
-    80% { content: "> SYS_INIT (0x00A1)\\A> MOUNTING VFS... [OK]\\A> LOADING KERNEL MODULES... [OK]\\A> ALLOCATING NEURAL BLOCKS... [OK]\\A> INITIALIZING VOICE RECOGNITION... [OK]\\A> DECRYPTING SECURE TOKENS... [OK]\\A> CORE SECURE."; color: #00ffaa;}
-}
-
 @keyframes spinSweep {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -359,14 +304,13 @@ if "splash_shown" not in st.session_state:
 
 .sys-boot::after { 
     content: "";
-    animation: textGlitch 4.6s steps(1) forwards; 
+    animation: elegantTextSequence 4.6s steps(1) forwards; 
 }
-@keyframes textGlitch {
-    0% { content: "INITIALIZING CORE..."; color: #00d2ff;}
-    20% { content: "ESTABLISHING NEURAL LINK..."; color: #00d2ff; }
-    45% { content: "LOADING LLM WEIGHTS..."; color: #00d2ff; }
-    70% { content: "VERIFYING ENCRYPTION..."; color: #00d2ff; }
-    85% { content: "SYSTEM ONLINE"; color: #00ffaa; text-shadow: 0 0 15px #00ffaa;}
+@keyframes elegantTextSequence {
+    0% { content: "Calibrating Engine..."; color: #00d2ff;}
+    30% { content: "Loading Language Models..."; color: #00d2ff; }
+    60% { content: "Securing Connection..."; color: #00d2ff; }
+    85% { content: "Intelligence Online"; color: #00ffaa; text-shadow: 0 0 15px #00ffaa;}
 }
 
 .sys-mem::after { 
@@ -383,29 +327,11 @@ if "splash_shown" not in st.session_state:
 </style>
 
 <div class="solid-splash">
-<!-- Full Screen Targeting Crosshair -->
-<div class="hud-crosshair hud-crosshair-v"></div>
-<div class="hud-crosshair hud-crosshair-h"></div>
-
-<div class="radar-scan"></div>
-<div class="boot-log"></div>
-<div class="hud-hex"></div>
-
-<!-- Audio Spectrum Analyzer -->
-<div class="hud-audio">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-</div>
-
-<!-- Threat/Warning Box -->
-<div class="hud-warning">
-    <span class="blink">⚠ CAUTION</span><br>
-    NEURAL LINK ACTIVE
+<div class="bokeh-particles">
+    <div class="bokeh b1"></div>
+    <div class="bokeh b2"></div>
+    <div class="bokeh b3"></div>
+    <div class="bokeh b4"></div>
 </div>
 
 <div class="orbital-core">
