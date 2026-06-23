@@ -263,31 +263,31 @@ if "splash_shown" not in st.session_state:
 </style>
 
 <div class="solid-splash">
-    <div class="orbital-core">
-        <div class="ring ring-1"></div>
-        <div class="ring ring-2"></div>
-        <div class="ring ring-3"></div>
-        <div class="core-node"></div>
-    </div>
-    
-    <div class="splash-content">
-        <div class="splash-logo">DeepSense</div>
-        <div class="splash-subtitle">Neural Intelligence Engine</div>
-        
-        <div class="status-console">
-            <div class="status-line">
-                <span>Process</span>
-                <span class="status-value sys-boot"></span>
-            </div>
-            <div class="status-line">
-                <span>Active Memory</span>
-                <span class="status-value sys-mem"></span>
-            </div>
-            <div class="progress-track">
-                <div class="progress-fill"></div>
-            </div>
-        </div>
-    </div>
+<div class="orbital-core">
+<div class="ring ring-1"></div>
+<div class="ring ring-2"></div>
+<div class="ring ring-3"></div>
+<div class="core-node"></div>
+</div>
+
+<div class="splash-content">
+<div class="splash-logo">DeepSense</div>
+<div class="splash-subtitle">Neural Intelligence Engine</div>
+
+<div class="status-console">
+<div class="status-line">
+<span>Process</span>
+<span class="status-value sys-boot"></span>
+</div>
+<div class="status-line">
+<span>Active Memory</span>
+<span class="status-value sys-mem"></span>
+</div>
+<div class="progress-track">
+<div class="progress-fill"></div>
+</div>
+</div>
+</div>
 </div>
 """, unsafe_allow_html=True)
         
