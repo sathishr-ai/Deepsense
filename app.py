@@ -167,23 +167,24 @@ if "splash_shown" not in st.session_state:
     filter: drop-shadow(0 0 8px #00ffaa);
 }
 
-/* Premium Biometric Scanline */
+/* Premium Full-Screen Laser Scan */
 .biometric-laser {
     position: absolute;
-    width: 120px;
-    height: 1.5px;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 2px;
     background: #ffffff;
-    box-shadow: 0 0 15px 3px #00d2ff, 0 -15px 15px rgba(0, 210, 255, 0.2);
-    border-radius: 50%;
+    box-shadow: 0 0 20px 5px #00d2ff, 0 -30px 40px rgba(0, 210, 255, 0.2);
     z-index: 15;
-    animation: bioScan 3s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+    pointer-events: none;
+    animation: bioScan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
 @keyframes bioScan {
-    0% { transform: translateY(-70px); opacity: 0; }
-    15% { opacity: 1; }
-    85% { opacity: 1; }
-    100% { transform: translateY(70px); opacity: 0; }
+    0% { transform: translateY(-10vh); opacity: 0; }
+    15% { opacity: 0.8; }
+    85% { opacity: 0.8; }
+    100% { transform: translateY(110vh); opacity: 0; }
 }
 
 /* Central AI SVG Logo */
@@ -346,6 +347,9 @@ if "splash_shown" not in st.session_state:
 </style>
 
 <div class="solid-splash">
+<!-- Full Screen Enterprise Laser Scan -->
+<div class="biometric-laser"></div>
+
 <div class="bokeh-particles">
     <div class="bokeh b1"></div>
     <div class="bokeh b2"></div>
@@ -354,8 +358,6 @@ if "splash_shown" not in st.session_state:
 </div>
 
 <div class="orbital-core">
-<!-- Enterprise Biometric Laser Scan -->
-<div class="biometric-laser"></div>
 <div class="ring-track ring-track-1"></div>
 <div class="sweep sweep-1"></div>
 <div class="ring-track ring-track-2"></div>
