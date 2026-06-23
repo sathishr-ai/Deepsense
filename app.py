@@ -492,7 +492,7 @@ with st.sidebar:
         st.rerun()
 
     # Full Functional Search Bar (Under New Chat)
-    search_query = st.text_input("🔍 Search Chats", key="history_search", label_visibility="collapsed", placeholder="🔍 Search chats...")
+    search_query = st.text_input("Search Chats", key="history_search", label_visibility="collapsed", placeholder="Search chats...")
 
     st.markdown("<br>", unsafe_allow_html=True)
     

@@ -218,7 +218,8 @@ div.st-key-new_chat_btn button:hover {
 
 /* ── Sidebar Search Box ── */
 div.st-key-history_search {
-    margin-top: -15px !important;
+    margin-top: -10px !important;
+    padding-left: 10px !important; /* Align with New Chat icon */
 }
 div.st-key-new_chat_btn {
     margin-bottom: 0px !important;
@@ -234,10 +235,21 @@ div.st-key-history_search [data-baseweb="input"] {
     box-shadow: none !important;
 }
 
+/* Add an elegant outline search icon using CSS */
+div.st-key-history_search [data-baseweb="input"]::before {
+    content: "⚲"; /* Clean outline magnifying glass */
+    font-size: 1.2rem;
+    color: #a1a1aa;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    transform: rotate(-45deg); /* Make it look like a standard search icon */
+}
+
 div.st-key-history_search input {
     color: #e4e4e7 !important;
     font-size: 0.9rem !important;
-    padding-left: 5px !important;
+    padding-left: 0px !important;
 }
 
 div.st-key-history_search div:focus-within {
