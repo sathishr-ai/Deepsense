@@ -80,118 +80,179 @@ if "splash_shown" not in st.session_state:
     
     splash_placeholder = st.empty()
     
-    with splash_placeholder.container():
         st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;600&family=JetBrains+Mono:wght@100;400&display=swap');
 
 .solid-splash {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #000000;
+    background: #02040a;
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.05) 0%, transparent 60%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
     z-index: 999999;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    animation: fadeOutSplash 3.5s cubic-bezier(0.8, 0, 0.2, 1) forwards;
+    font-family: 'Outfit', sans-serif;
+    animation: fadeOutSplash 4s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
-/* The Siri/OpenAI style breathing orb */
-.orb-container {
+/* Premium Precision Rings */
+.orbital-core {
     position: relative;
-    width: 250px; height: 250px;
+    width: 280px; height: 280px;
     display: flex; justify-content: center; align-items: center;
     margin-bottom: 2.5rem;
 }
 
-.orb {
+.ring-track {
     position: absolute;
-    width: 140px; height: 140px;
-    background: linear-gradient(135deg, #00d2ff, #7000ff, #ff007b);
     border-radius: 50%;
-    filter: blur(45px);
-    opacity: 0.8;
-    animation: breatheOrb 4s ease-in-out infinite alternate, rotateOrb 10s linear infinite;
+    border: 1px solid rgba(255,255,255,0.03);
 }
 
-.orb-core {
+.ring-track-1 { width: 260px; height: 260px; }
+.ring-track-2 { width: 190px; height: 190px; }
+.ring-track-3 { width: 120px; height: 120px; }
+
+.sweep {
     position: absolute;
-    width: 70px; height: 70px;
-    background: #ffffff;
     border-radius: 50%;
-    filter: blur(25px);
-    opacity: 0.7;
-    animation: pulseCore 2s ease-in-out infinite alternate;
+    mask: conic-gradient(from 0deg, transparent 70%, white 100%);
+    -webkit-mask: conic-gradient(from 0deg, transparent 70%, white 100%);
 }
 
-/* Exquisite Minimalist Typography */
+.sweep-1 {
+    width: 260px; height: 260px;
+    border: 2px solid #00d2ff;
+    animation: spinSweep 3s linear infinite;
+    filter: drop-shadow(0 0 8px #00d2ff);
+}
+
+.sweep-2 {
+    width: 190px; height: 190px;
+    border: 2px solid #7000ff;
+    animation: spinSweepReverse 2s linear infinite;
+    filter: drop-shadow(0 0 8px #7000ff);
+}
+
+.sweep-3 {
+    width: 120px; height: 120px;
+    border: 2px solid #00ffaa;
+    animation: spinSweep 1.5s linear infinite;
+    filter: drop-shadow(0 0 8px #00ffaa);
+}
+
+.core-glow {
+    position: absolute;
+    width: 50px; height: 50px;
+    background: radial-gradient(circle, #ffffff 0%, #00d2ff 40%, transparent 80%);
+    border-radius: 50%;
+    filter: blur(8px);
+    animation: pulseCoreGlow 2s ease-in-out infinite alternate;
+}
+
 .splash-content {
     z-index: 3;
     display: flex; flex-direction: column; align-items: center;
-    animation: slideUpFade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .splash-logo {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 300;
-    letter-spacing: 14px;
+    letter-spacing: 12px;
     color: #ffffff;
-    margin-bottom: 12px;
-    margin-right: -14px; /* offset the massive letter-spacing for true center */
-}
-
-.splash-badge {
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: #000000;
-    background: #ffffff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    letter-spacing: 3px;
-    margin-bottom: 3.5rem;
+    margin-right: -12px;
     text-transform: uppercase;
+    text-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
 }
 
-/* Hairline loader */
-.loader-track {
-    width: 160px;
-    height: 1px;
-    background: rgba(255,255,255,0.1);
+.splash-subtitle {
+    font-size: 0.75rem;
+    font-weight: 100;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 5px;
+    margin-bottom: 2.5rem;
+}
+
+/* Glassmorphism Console */
+.status-console {
+    width: 340px;
+    background: rgba(10, 15, 24, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 210, 255, 0.02);
+}
+
+.status-line {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.status-value {
+    color: #00d2ff;
+    font-weight: 400;
+    text-shadow: 0 0 8px rgba(0, 210, 255, 0.4);
+}
+
+.progress-track {
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.05);
     position: relative;
     overflow: hidden;
+    margin-top: 4px;
+    border-radius: 1px;
 }
 
-.loader-fill {
+.progress-fill {
     position: absolute;
-    top: 0; left: 50%; height: 100%; width: 0%;
-    background: #ffffff;
-    transform: translateX(-50%);
-    box-shadow: 0 0 8px rgba(255,255,255,0.8);
-    animation: fillCenter 3.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+    top: 0; left: 0; height: 100%; width: 0%;
+    background: linear-gradient(90deg, transparent, #00d2ff, #ffffff);
+    box-shadow: 0 0 10px #00d2ff;
+    animation: fillProgress 3.8s cubic-bezier(0.8, 0, 0.2, 1) forwards;
 }
 
-@keyframes breatheOrb {
-    0% { transform: scale(0.85); opacity: 0.6; filter: blur(35px); }
-    100% { transform: scale(1.3); opacity: 1; filter: blur(55px); }
-}
-
-@keyframes rotateOrb {
+@keyframes spinSweep {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-@keyframes pulseCore {
+@keyframes spinSweepReverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes pulseCoreGlow {
     0% { transform: scale(0.9); opacity: 0.6; }
-    100% { transform: scale(1.1); opacity: 0.9; }
+    100% { transform: scale(1.1); opacity: 1; }
 }
 
 @keyframes slideUpFade {
-    0% { opacity: 0; transform: translateY(20px); }
+    0% { opacity: 0; transform: translateY(30px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fillCenter {
+@keyframes fillProgress {
     0% { width: 0%; }
-    50% { width: 40%; }
+    40% { width: 35%; }
+    75% { width: 85%; }
     100% { width: 100%; }
 }
 
@@ -199,26 +260,66 @@ if "splash_shown" not in st.session_state:
     0%, 85% { opacity: 1; visibility: visible; }
     100% { opacity: 0; visibility: hidden; }
 }
+
+.sys-boot::after { 
+    content: "";
+    animation: textGlitch 3.8s steps(1) forwards; 
+}
+@keyframes textGlitch {
+    0% { content: "INITIALIZING..."; color: #00d2ff;}
+    20% { content: "ESTABLISHING NEURAL LINK..."; color: #00d2ff; }
+    45% { content: "LOADING LANGUAGE MODELS..."; color: #00d2ff; }
+    70% { content: "VERIFYING ENCRYPTION..."; color: #00d2ff; }
+    90% { content: "SYSTEM ONLINE"; color: #00ffaa; text-shadow: 0 0 10px #00ffaa;}
+}
+
+.sys-mem::after { 
+    content: "";
+    animation: memTick 3.8s steps(1) forwards; 
+}
+@keyframes memTick {
+    0% { content: "0.0 TB"; }
+    20% { content: "128.4 TB"; }
+    45% { content: "512.8 TB"; }
+    70% { content: "1024.0 TB"; }
+    90% { content: "OPTIMIZED"; color: #00ffaa; }
+}
 </style>
 
 <div class="solid-splash">
-<div class="orb-container">
-<div class="orb"></div>
-<div class="orb-core"></div>
+<div class="orbital-core">
+<div class="ring-track ring-track-1"></div>
+<div class="sweep sweep-1"></div>
+<div class="ring-track ring-track-2"></div>
+<div class="sweep sweep-2"></div>
+<div class="ring-track ring-track-3"></div>
+<div class="sweep sweep-3"></div>
+<div class="core-glow"></div>
 </div>
 
 <div class="splash-content">
 <div class="splash-logo">DEEPSENSE</div>
-<div class="splash-badge">INTELLIGENCE</div>
-<div class="loader-track">
-<div class="loader-fill"></div>
+<div class="splash-subtitle">Neural Intelligence Engine</div>
+
+<div class="status-console">
+<div class="status-line">
+<span>System Status</span>
+<span class="status-value sys-boot"></span>
+</div>
+<div class="status-line">
+<span>Active Memory</span>
+<span class="status-value sys-mem"></span>
+</div>
+<div class="progress-track">
+<div class="progress-fill"></div>
+</div>
 </div>
 </div>
 </div>
 """, unsafe_allow_html=True)
         
-        # Force the Python backend to hold this screen for exactly 3.4 seconds to let the fade-out complete
-        time.sleep(3.4)
+        # Force the Python backend to hold this screen for exactly 3.8 seconds to let the fade-out complete
+        time.sleep(3.8)
         
     # Physically destroy the splash screen from the application DOM forever
     splash_placeholder.empty()
