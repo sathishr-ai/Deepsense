@@ -121,7 +121,7 @@ if "splash_shown" not in st.session_state:
 /* Premium Precision Rings */
 .orbital-core {
     position: relative;
-    width: 320px; height: 320px;
+    width: 240px; height: 240px;
     display: flex; justify-content: center; align-items: center;
     margin-bottom: 2rem;
     z-index: 3;
@@ -133,9 +133,9 @@ if "splash_shown" not in st.session_state:
     border: 1px solid rgba(255,255,255,0.02);
 }
 
-.ring-track-1 { width: 300px; height: 300px; border: 1px solid rgba(0,212,255,0.1); }
-.ring-track-2 { width: 220px; height: 220px; border: 1px dashed rgba(255,255,255,0.15); animation: spinSweepReverse 20s linear infinite;}
-.ring-track-3 { width: 140px; height: 140px; }
+.ring-track-1 { width: 220px; height: 220px; border: 1px solid rgba(0,212,255,0.1); }
+.ring-track-2 { width: 160px; height: 160px; border: 1px dashed rgba(255,255,255,0.15); animation: spinSweepReverse 20s linear infinite;}
+.ring-track-3 { width: 100px; height: 100px; }
 
 .sweep {
     position: absolute;
@@ -145,14 +145,14 @@ if "splash_shown" not in st.session_state:
 }
 
 .sweep-1 {
-    width: 300px; height: 300px;
+    width: 220px; height: 220px;
     border: 2px solid #00d2ff;
     animation: spinSweep 3.5s linear infinite;
     filter: drop-shadow(0 0 10px #00d2ff);
 }
 
 .sweep-2 {
-    width: 220px; height: 220px;
+    width: 160px; height: 160px;
     border: 3px solid #7000ff;
     animation: spinSweepReverse 2.5s linear infinite;
     filter: drop-shadow(0 0 12px #7000ff);
